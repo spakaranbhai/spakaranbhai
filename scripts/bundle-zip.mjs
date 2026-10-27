@@ -27,6 +27,7 @@ const itemsToCopy = [
   'vite.config.ts',
   'metadata.json',
   'README.md',
+  'vercel.json',
   '.gitignore',
   '.env.example'
 ];
@@ -58,7 +59,7 @@ if (fs.existsSync(destZip)) {
   fs.unlinkSync(destZip);
 }
 
-const psScript = `Compress-Archive -Path '${stagingDir}\\*' -DestinationPath '${destZip}' -CompressionLevel Optimal`;
+const psScript = `$ProgressPreference = 'SilentlyContinue'; Compress-Archive -Path '${stagingDir}\\*' -DestinationPath '${destZip}' -CompressionLevel Optimal`;
 execSync(`powershell -NoProfile -Command "${psScript}"`, { stdio: 'inherit' });
 
 // Also duplicate to legacy zips so all paths work smoothly
