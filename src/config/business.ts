@@ -106,9 +106,9 @@ export const BUSINESS_CONFIG: BusinessConfig = {
   city: "Bhopal",
   state: "Madhya Pradesh",
   country: "India",
-  locality: "Mansarovar Complex, Shivaji Nagar",
-  zipCode: "462016",
-  streetAddressPlaceholder: "C-Block 1st floor, Mansarovar Complex, MF-30, Habibganj Rd, No 6 Locality, Shivaji Nagar, Bhopal, Madhya Pradesh 462016",
+  locality: "Zone-II, Maharana Pratap Nagar",
+  zipCode: "462011",
+  streetAddressPlaceholder: "Board Office Chouraha, Zone-II, Maharana Pratap Nagar, Bhopal, Madhya Pradesh 462011",
   isExactStreetAddressConfigured: true,
 
   // Contact Information
@@ -124,13 +124,13 @@ export const BUSINESS_CONFIG: BusinessConfig = {
   isWhatsappConfigured: true,
 
 
-  // Google Maps Integration — Exact geocoordinates for Mansarovar Complex, Shivaji Nagar, Bhopal
+  // Google Maps Integration — Exact geocoordinates for Board Office Chouraha, Zone-II, Maharana Pratap Nagar, Bhopal
   maps: {
-    latitude: 23.2242,
-    longitude: 77.4363,
+    latitude: 23.2332,
+    longitude: 77.4344,
     zoomLevel: 16,
-    embedUrl: "https://maps.google.com/maps?q=C-Block+1st+floor,+Mansarovar+Complex,+MF-30,+Habibganj+Rd,+No+6+Locality,+Shivaji+Nagar,+Bhopal,+Madhya+Pradesh+462016&t=&z=16&ie=UTF8&iwloc=B&output=embed",
-    directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=C-Block+1st+floor,+Mansarovar+Complex,+MF-30,+Habibganj+Rd,+No+6+Locality,+Shivaji+Nagar,+Bhopal,+Madhya+Pradesh+462016,+India",
+    embedUrl: "https://maps.google.com/maps?q=Board+Office+Chouraha,+Zone-II,+Maharana+Pratap+Nagar,+Bhopal,+Madhya+Pradesh+462011&t=&z=16&ie=UTF8&iwloc=B&output=embed",
+    directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=Board+Office+Chouraha,+Zone-II,+Maharana+Pratap+Nagar,+Bhopal,+Madhya+Pradesh+462011,+India",
     apiKey: typeof import.meta !== "undefined" ? import.meta.env?.VITE_GOOGLE_MAPS_API_KEY : undefined,
   },
 
