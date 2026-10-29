@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, Clock, Check, Sparkles, Calendar, Heart } from 'lucide-react';
 import { SpaService } from '../data/spaData';
 
@@ -13,6 +13,22 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
   onClose,
   onBook,
 }) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && service) {
+        onClose();
+      }
+    };
+    if (service) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [service, onClose]);
+
   if (!service) return null;
 
   return (
@@ -21,6 +37,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
         className="relative w-full max-w-3xl bg-white rounded-xl shadow-2xl border border-[#E3DACD] overflow-hidden my-auto sm:my-8 max-h-[92vh] flex flex-col"
         role="dialog"
         aria-modal="true"
+        aria-labelledby="service-detail-title"
       >
         {/* Close Button */}
         <button
@@ -47,7 +64,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
             <div className="text-[#7A9988] text-[11px] sm:text-xs uppercase tracking-widest font-medium mb-1">
               {service.category}
             </div>
-            <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-white font-medium tracking-tight pr-8">
+            <h3 id="service-detail-title" className="font-serif text-xl sm:text-2xl md:text-3xl text-white font-medium tracking-tight pr-8">
               {service.title}
             </h3>
             <div className="mt-2 flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs text-[#ECE4D8] font-sans">

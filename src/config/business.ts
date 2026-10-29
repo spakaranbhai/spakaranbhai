@@ -13,6 +13,7 @@ export interface BusinessConfig {
   brandShort: string;
   tagline: string;
   shortDescription: string;
+  siteUrl: string;
   city: string;
   state: string;
   country: string;
@@ -66,6 +67,7 @@ export interface BusinessConfig {
     longitude: number;
     zoomLevel: number;
     embedUrl: string;
+    placeUrl?: string;
     directionsUrl: string;
     apiKey?: string;
   };
@@ -91,6 +93,7 @@ export const BUSINESS_CONFIG: BusinessConfig = {
   brandShort: "Nandini Spa",
   tagline: "Sanctuary of Restorative Spa & Holistic Bodywork",
   shortDescription: "An exquisite restorative wellness and spa sanctuary in Bhopal, Madhya Pradesh. Uniting therapeutic deep-tissue bodywork, warm basalt stone care, authentic Ayurvedic rituals, and calming botanical aromatherapy in quiet, climate-controlled suites.",
+  siteUrl: typeof import.meta !== "undefined" && import.meta.env?.VITE_SITE_URL ? import.meta.env.VITE_SITE_URL : "https://spakaranbhai.github.io",
   zipFileName: "nandini-spa-project.zip",
   
   // Official Brand Logo (From user horizontal lockup: media_1793003978134)
@@ -124,21 +127,22 @@ export const BUSINESS_CONFIG: BusinessConfig = {
   isWhatsappConfigured: true,
 
 
-  // Google Maps Integration — Exact geocoordinates for Board Office Chouraha, Zone-II, Maharana Pratap Nagar, Bhopal
+  // Google Maps Integration — Official verified listing for Nandini Spa, Bhopal
   maps: {
-    latitude: 23.2332,
-    longitude: 77.4344,
+    latitude: 23.2312286,
+    longitude: 77.4331738,
     zoomLevel: 16,
-    embedUrl: "https://maps.google.com/maps?q=Board+Office+Chouraha,+Zone-II,+Maharana+Pratap+Nagar,+Bhopal,+Madhya+Pradesh+462011&t=&z=16&ie=UTF8&iwloc=B&output=embed",
-    directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=Board+Office+Chouraha,+Zone-II,+Maharana+Pratap+Nagar,+Bhopal,+Madhya+Pradesh+462011,+India",
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.325797556229!2d77.43317379999999!3d23.231228599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c4306c83a65db%3A0x7d84842de233e7df!2sNandini%20Spa!5e0!3m2!1sen!2sin!4v1793265164425!5m2!1sen!2sin",
+    placeUrl: "https://maps.google.com/?cid=9044390635205519327",
+    directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=Nandini+Spa&destination_place_id=0x397c4306c83a65db:0x7d84842de233e7df",
     apiKey: typeof import.meta !== "undefined" ? import.meta.env?.VITE_GOOGLE_MAPS_API_KEY : undefined,
   },
 
-  // Operating Hours
+  // Operating Hours — 24 Hours / 7 Days a week service
   hours: {
-    weekday: "Monday – Saturday: 9:00 AM – 9:00 PM",
-    weekend: "Sunday: 10:00 AM – 8:00 PM",
-    notes: "Advance reservations recommended. Private suites prepared freshly for every guest.",
+    weekday: "Open 24 Hours (Monday – Sunday)",
+    weekend: "24/7 Round-the-Clock Service",
+    notes: "Available 24 hours daily. Private suites prepared freshly for every guest. Walk-ins and reservations welcome.",
   },
 
   socials: {
@@ -151,13 +155,18 @@ export const BUSINESS_CONFIG: BusinessConfig = {
 /**
  * Helper utility to build dynamic map embed URL with marker pin from any address query
  */
-export function getGoogleMapsEmbedUrl(query: string, zoom = 16): string {
+export function getGoogleMapsEmbedUrl(query?: string, zoom = 16): string {
+  // If no custom query is provided or query matches Nandini Spa, return the verified exact embed URL
+  if (!query || query.includes("Nandini") || query.includes("Board Office")) {
+    return BUSINESS_CONFIG.maps.embedUrl;
+  }
+
   const apiKey = typeof import.meta !== "undefined" ? import.meta.env?.VITE_GOOGLE_MAPS_API_KEY : undefined;
   const encoded = encodeURIComponent(query);
   
   // If an official Google Maps Platform API key is available, use Maps Embed API Place mode with tracking
   if (apiKey && apiKey.trim()) {
-    return `https://www.google.com/maps/embed/v1/place?key=${apiKey.trim()}&q=${encoded}&center=23.2242,77.4363&zoom=${zoom}&solution_id=gmp_git_agentskills_v1`;
+    return `https://www.google.com/maps/embed/v1/place?key=${apiKey.trim()}&q=${encoded}&center=${BUSINESS_CONFIG.maps.latitude},${BUSINESS_CONFIG.maps.longitude}&zoom=${zoom}&solution_id=gmp_git_agentskills_v1`;
   }
   
   // Standard zero-config embed with exact location pin marker

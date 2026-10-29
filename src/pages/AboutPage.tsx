@@ -1,27 +1,49 @@
 import React from 'react';
-import { ShieldCheck, Droplets, HeartHandshake, Compass, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ShieldCheck, Droplets, HeartHandshake, Compass, Award, Calendar, Phone } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../config/business';
+import { SEOHead } from '../components/SEOHead';
+import { ROUTE_SEO, generateBreadcrumbsSchema, getProductionBaseUrl } from '../data/seoData';
+import { trackBookingTrigger, trackPhoneClick } from '../utils/analytics';
 
 interface AboutPageProps {
   onOpenBooking: () => void;
 }
 
 export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
+  const baseUrl = getProductionBaseUrl();
+  const seo = ROUTE_SEO.about;
+
+  const breadcrumbs = [
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
+  ];
+
+  const structuredData = [
+    generateBreadcrumbsSchema(baseUrl, breadcrumbs),
+  ];
+
   return (
     <div className="w-full bg-[#FAF7F2]">
+      <SEOHead config={seo} structuredData={structuredData} />
       
       {/* Header Banner — Warm Espresso (#201C17) */}
       <section className="bg-[#201C17] text-white py-20 px-4 sm:px-6 lg:px-8 border-b border-[#332D26]">
         <div className="max-w-4xl mx-auto text-center">
+          <nav aria-label="Breadcrumb" className="mb-4 flex items-center justify-center gap-2 text-xs text-[#C5BBAF]">
+            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-[#7A9988] font-medium">About Us</span>
+          </nav>
           <div className="text-xs font-semibold uppercase tracking-widest text-[#7A9988] mb-3">
-            Our Purpose & Ethos
+            Our Purpose & Ethos · Bhopal
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-[#FAF7F2]">
             About {BUSINESS_CONFIG.brandName}
           </h1>
           <p className="mt-4 text-base sm:text-lg text-[#ECE4D8] font-light max-w-2xl mx-auto leading-relaxed">
             Founded on the conviction that authentic wellness requires more than temporary relaxation—it requires 
-            thoughtful anatomical care, unadulterated botanicals, and total sensory calm.
+            thoughtful anatomical care, unadulterated botanicals, and total sensory calm in MP Nagar, Bhopal.
           </p>
         </div>
       </section>
@@ -55,6 +77,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
                 src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=1200&q=80"
                 alt="Therapeutic wellness sanctuary suites at Nandini Spa Bhopal"
                 referrerPolicy="no-referrer"
+                loading="lazy"
+                width="800"
+                height="600"
                 className="w-full h-full object-cover"
               />
             </div>

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Maximize2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GALLERY_ITEMS, GalleryItem } from '../data/spaData';
+import { SEOHead } from '../components/SEOHead';
+import { ROUTE_SEO, generateBreadcrumbsSchema, getProductionBaseUrl } from '../data/seoData';
 
 interface GalleryPageProps {
   onOpenBooking: () => void;
@@ -9,6 +12,18 @@ interface GalleryPageProps {
 export const GalleryPage: React.FC<GalleryPageProps> = ({ onOpenBooking }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [activeItem, setActiveItem] = useState<GalleryItem | null>(null);
+
+  const baseUrl = getProductionBaseUrl();
+  const seo = ROUTE_SEO.gallery;
+
+  const breadcrumbs = [
+    { name: 'Home', path: '/' },
+    { name: 'Sanctuary Gallery', path: '/gallery' },
+  ];
+
+  const structuredData = [
+    generateBreadcrumbsSchema(baseUrl, breadcrumbs),
+  ];
 
   const categories = ['All', 'Sanctuary Spaces', 'Therapies', 'Botanicals'];
 
@@ -32,19 +47,25 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onOpenBooking }) => {
 
   return (
     <div className="w-full bg-[#FAF7F2]">
+      <SEOHead config={seo} structuredData={structuredData} />
       
       {/* Header — Warm Espresso (#201C17) */}
       <section className="bg-[#201C17] text-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#332D26]">
         <div className="max-w-4xl mx-auto text-center">
+          <nav aria-label="Breadcrumb" className="mb-4 flex items-center justify-center gap-2 text-xs text-[#C5BBAF]">
+            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-[#7A9988] font-medium">Sanctuary Gallery</span>
+          </nav>
           <div className="text-xs font-semibold uppercase tracking-widest text-[#7A9988] mb-2">
-            Sanctuary Visual Tour
+            Sanctuary Visual Tour · Bhopal
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-normal tracking-tight text-[#FAF7F2]">
-            Nandini Ambiance & Spaces
+            Visual Tour of Nandini Spa Sanctuary in Bhopal
           </h1>
           <p className="mt-3 text-sm sm:text-base text-[#ECE4D8] font-light max-w-2xl mx-auto leading-relaxed">
             Experience the soothing warm cream, eucalyptus sage, and natural stone aesthetics of our suites, 
-            hydro-reflection spaces, and authentic therapy rooms in Bhopal.
+            hydro-reflection spaces, and authentic therapy rooms in MP Nagar, Bhopal.
           </p>
         </div>
       </section>
@@ -79,6 +100,8 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({ onOpenBooking }) => {
                 src={item.imageUrl}
                 alt={item.title}
                 loading="lazy"
+                width="600"
+                height="450"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 onError={(e) => {

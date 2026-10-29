@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { MapPin, Mail, Phone, Clock, Send, CheckCircle2, MessageSquare, ExternalLink, Settings, Navigation } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { MapPin, Mail, Phone, Clock, Send, CheckCircle2, MessageSquare, ExternalLink, Settings, Navigation, Calendar } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../config/business';
 import { GoogleMapsEmbed } from '../components/GoogleMapsEmbed';
+import { SEOHead } from '../components/SEOHead';
+import { ROUTE_SEO, generateBreadcrumbsSchema, getProductionBaseUrl } from '../data/seoData';
+import { trackContactFormSubmitted, trackPhoneClick, trackWhatsAppClick, trackDirectionsClick } from '../utils/analytics';
 
 interface ContactPageProps {
   onOpenConfig?: () => void;
@@ -18,6 +22,18 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSending, setIsSending] = useState(false);
   const [isSent, setIsSent] = useState(false);
+
+  const baseUrl = getProductionBaseUrl();
+  const seo = ROUTE_SEO.contact;
+
+  const breadcrumbs = [
+    { name: 'Home', path: '/' },
+    { name: 'Contact & Location', path: '/contact' },
+  ];
+
+  const structuredData = [
+    generateBreadcrumbsSchema(baseUrl, breadcrumbs),
+  ];
 
   const validate = () => {
     const err: Record<string, string> = {};
@@ -36,24 +52,31 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
     setTimeout(() => {
       setIsSending(false);
       setIsSent(true);
+      trackContactFormSubmitted(subject);
     }, 600);
   };
 
   return (
     <div className="w-full bg-[#FAF7F2]">
+      <SEOHead config={seo} structuredData={structuredData} />
       
       {/* Header — Warm Espresso (#201C17) */}
       <section className="bg-[#201C17] text-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#332D26]">
         <div className="max-w-4xl mx-auto text-center">
+          <nav aria-label="Breadcrumb" className="mb-4 flex items-center justify-center gap-2 text-xs text-[#C5BBAF]">
+            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-[#7A9988] font-medium">Contact & Location</span>
+          </nav>
           <div className="text-xs font-semibold uppercase tracking-widest text-[#7A9988] mb-2">
-            Sanctuary Inquiries & Location
+            Sanctuary Inquiries & Location · Bhopal
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-normal tracking-tight text-[#FAF7F2]">
             Contact {BUSINESS_CONFIG.brandName}
           </h1>
           <p className="mt-3 text-sm sm:text-base text-[#ECE4D8] font-light max-w-2xl mx-auto leading-relaxed">
             Have questions about specialized musculoskeletal treatments, group reservations, or navigation? 
-            Our concierge in Bhopal is at your service.
+            Our concierge in Maharana Pratap Nagar, Bhopal is at your service.
           </p>
         </div>
       </section>
@@ -108,6 +131,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
                   {BUSINESS_CONFIG.isPhoneConfigured && BUSINESS_CONFIG.phone ? (
                     <a
                       href={`tel:${BUSINESS_CONFIG.phone.replace(/[^0-9+]/g, '')}`}
+                      onClick={() => trackPhoneClick('contact_page_card', BUSINESS_CONFIG.phone!)}
                       className="text-sm font-medium text-[#28231D] hover:text-[#446353] hover:underline mt-0.5 block"
                     >
                       {BUSINESS_CONFIG.phone}
@@ -124,6 +148,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
                       href={`https://wa.me/${BUSINESS_CONFIG.whatsappNumber.replace(/[^0-9]/g, '')}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackWhatsAppClick('contact_page_card')}
                       className="inline-flex items-center gap-1.5 mt-2.5 px-3 py-1.5 bg-[#446353] hover:bg-[#365143] text-white text-xs rounded transition-colors"
                     >
                       <MessageSquare className="w-3.5 h-3.5" />
@@ -242,60 +267,68 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                    <label htmlFor="contact-name" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                       Your Full Name *
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
                       placeholder="e.g. Sameer Dixit"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className={`w-full px-3.5 py-2.5 rounded-md border text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-1 focus:ring-[#446353] ${
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? 'contact-name-error' : undefined}
+                      className={`w-full px-3.5 py-2.5 rounded-md border text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-2 focus:ring-[#446353] ${
                         errors.name ? 'border-red-400 bg-red-50/20' : 'border-[#E3DACD]'
                       }`}
                     />
-                    {errors.name && <p className="text-red-600 text-xs mt-1">{errors.name}</p>}
+                    {errors.name && <p id="contact-name-error" className="text-red-600 text-xs mt-1">{errors.name}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                    <label htmlFor="contact-email" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                       Email Address *
                     </label>
                     <input
+                      id="contact-email"
                       type="email"
                       placeholder="e.g. sameer@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className={`w-full px-3.5 py-2.5 rounded-md border text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-1 focus:ring-[#446353] ${
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? 'contact-email-error' : undefined}
+                      className={`w-full px-3.5 py-2.5 rounded-md border text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-2 focus:ring-[#446353] ${
                         errors.email ? 'border-red-400 bg-red-50/20' : 'border-[#E3DACD]'
                       }`}
                     />
-                    {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email}</p>}
+                    {errors.email && <p id="contact-email-error" className="text-red-600 text-xs mt-1">{errors.email}</p>}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                    <label htmlFor="contact-phone" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                       Contact Phone (Optional)
                     </label>
                     <input
+                      id="contact-phone"
                       type="tel"
                       placeholder="Mobile number"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-md border border-[#E3DACD] text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-1 focus:ring-[#446353]"
+                      className="w-full px-3.5 py-2.5 rounded-md border border-[#E3DACD] text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-2 focus:ring-[#446353]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                    <label htmlFor="contact-subject" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                       Inquiry Category
                     </label>
                     <select
+                      id="contact-subject"
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-md border border-[#E3DACD] text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-1 focus:ring-[#446353]"
+                      className="w-full px-3.5 py-2.5 rounded-md border border-[#E3DACD] text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-2 focus:ring-[#446353]"
                     >
                       <option value="General Consultation">General Consultation</option>
                       <option value="Treatment Recommendation">Treatment Recommendation</option>
@@ -307,19 +340,22 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                  <label htmlFor="contact-message" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                     Your Message *
                   </label>
                   <textarea
+                    id="contact-message"
                     rows={4}
                     placeholder="How can Nandini Spa concierge assist your restorative wellness journey?"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className={`w-full px-3.5 py-2.5 rounded-md border text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-1 focus:ring-[#446353] placeholder:text-[#8C8275]/60 ${
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? 'contact-message-error' : undefined}
+                    className={`w-full px-3.5 py-2.5 rounded-md border text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-2 focus:ring-[#446353] placeholder:text-[#8C8275]/60 ${
                       errors.message ? 'border-red-400 bg-red-50/20' : 'border-[#E3DACD]'
                     }`}
                   />
-                  {errors.message && <p className="text-red-600 text-xs mt-1">{errors.message}</p>}
+                  {errors.message && <p id="contact-message-error" className="text-red-600 text-xs mt-1">{errors.message}</p>}
                 </div>
 
                 <div className="pt-2 flex items-center justify-between">
@@ -358,34 +394,128 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
         </div>
       </section>
 
-      {/* Full Width Integrated Google Maps Section */}
+      {/* Full Width Integrated Google Maps & Local Navigation Section */}
       <section className="py-16 bg-white border-t border-[#E3DACD] px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-widest text-[#446353] mb-1">
-                Sanctuary Map
+          {/* Header & Local SEO Overview */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+            <div className="max-w-3xl">
+              <div className="text-xs font-semibold uppercase tracking-widest text-[#446353] mb-2">
+                Maharana Pratap Nagar Bhopal Spa & Official Location
               </div>
-              <h2 className="font-serif text-3xl text-[#28231D] font-normal tracking-tight">
-                Our Office Location in Bhopal, Madhya Pradesh
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#28231D] font-normal tracking-tight">
+                Find Nandini Spa in MP Nagar, Bhopal
               </h2>
-              <p className="text-xs text-[#685F53] mt-1">
-                Official Google Maps embed. Centrally updated via <code className="text-[#28231D]">src/config/business.ts</code>.
+              <p className="mt-3 text-xs sm:text-sm text-[#685F53] leading-relaxed">
+                Centrally situated at Board Office Chouraha in Zone-II, MP Nagar, Nandini Spa is Bhopal’s serene sanctuary for certified musculoskeletal bodywork and restorative holistic therapy. Whether you need a rejuvenating{' '}
+                <Link to="/full-body-massage" className="text-[#446353] font-medium hover:underline">
+                  Full Body Massage in Bhopal
+                </Link>
+                , an exclusive suite for a relaxing{' '}
+                <Link to="/couple-spa" className="text-[#446353] font-medium hover:underline">
+                  Couple Spa Bhopal
+                </Link>
+                , or premium thermal amenities at our{' '}
+                <Link to="/luxury-spa" className="text-[#446353] font-medium hover:underline">
+                  Luxury Spa in Bhopal
+                </Link>
+                , our master therapists are ready to serve you.
               </p>
             </div>
 
-            <a
-              href={BUSINESS_CONFIG.maps.directionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 border border-[#E3DACD] hover:border-[#446353] text-xs font-semibold uppercase tracking-wider text-[#28231D] rounded-sm transition-colors shrink-0 bg-white"
-            >
-              <span>Open Directions in App</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            {/* Quick Actions Cluster */}
+            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+              <a
+                href={BUSINESS_CONFIG.maps.directionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackDirectionsClick('contact_map_header')}
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#446353] hover:bg-[#365143] text-white text-xs font-semibold uppercase tracking-wider rounded-sm transition-colors shadow-xs"
+                aria-label="Get turn-by-turn directions to Nandini Spa on Google Maps"
+              >
+                <Navigation className="w-3.5 h-3.5" />
+                <span>Get Directions</span>
+                <ExternalLink className="w-3 h-3 ml-0.5 opacity-80" />
+              </a>
+
+              {BUSINESS_CONFIG.isPhoneConfigured && BUSINESS_CONFIG.phone && (
+                <a
+                  href={`tel:${BUSINESS_CONFIG.phone.replace(/[^0-9+]/g, '')}`}
+                  onClick={() => trackPhoneClick('contact_map_header', BUSINESS_CONFIG.phone!)}
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white hover:bg-[#F3EFE6] border border-[#446353] text-[#446353] text-xs font-semibold uppercase tracking-wider rounded-sm transition-colors"
+                  aria-label={`Call Nandini Spa at ${BUSINESS_CONFIG.phone}`}
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>Call Now</span>
+                </a>
+              )}
+
+              {BUSINESS_CONFIG.isWhatsappConfigured && BUSINESS_CONFIG.whatsappNumber && (
+                <a
+                  href={`https://wa.me/${BUSINESS_CONFIG.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Hello Nandini Spa, I would like to inquire about spa appointments in MP Nagar, Bhopal.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick('contact_map_header')}
+                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold uppercase tracking-wider rounded-sm transition-colors"
+                  aria-label="Chat with Nandini Spa Concierge on WhatsApp"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp</span>
+                </a>
+              )}
+
+              <button
+                type="button"
+                onClick={onOpenBooking}
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#B3644C] hover:bg-[#9C543E] text-white text-xs font-semibold uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
+                aria-label="Open appointment booking modal"
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>Book Appointment</span>
+              </button>
+            </div>
           </div>
 
-          <GoogleMapsEmbed heightClass="h-[500px]" onOpenConfig={onOpenConfig} />
+          {/* Responsive Map Embed Container */}
+          <div className="w-full max-w-full overflow-hidden rounded-xl border border-[#E3DACD] shadow-sm">
+            <GoogleMapsEmbed heightClass="h-[380px] sm:h-[460px] lg:h-[520px]" onOpenConfig={onOpenConfig} />
+          </div>
+
+          {/* Local Information Strip Under Map */}
+          <div className="mt-6 p-4 sm:p-5 bg-[#FAF7F2] rounded-xl border border-[#E3DACD] flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-[#28231D]">
+            <div className="flex items-start sm:items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-[#E7EFEA] text-[#446353] flex items-center justify-center shrink-0">
+                <MapPin className="w-4 h-4" />
+              </div>
+              <div>
+                <div className="font-semibold text-[#28231D]">
+                  {BUSINESS_CONFIG.brandName} · {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city}
+                </div>
+                <div className="text-[#685F53] mt-0.5">
+                  {BUSINESS_CONFIG.streetAddressPlaceholder} (Coordinates: {BUSINESS_CONFIG.maps.latitude.toFixed(4)}° N, {BUSINESS_CONFIG.maps.longitude.toFixed(4)}° E)
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 pt-2 md:pt-0 border-t md:border-t-0 border-[#E3DACD]">
+              <Link
+                to="/services"
+                className="text-[#446353] font-medium hover:underline inline-flex items-center gap-1"
+              >
+                <span>View Treatment Menu & Pricing</span>
+                <span aria-hidden="true">&rarr;</span>
+              </Link>
+              <span className="text-[#8C8275] hidden sm:inline">·</span>
+              <a
+                href={BUSINESS_CONFIG.maps.placeUrl || BUSINESS_CONFIG.maps.directionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#685F53] hover:text-[#28231D] underline"
+              >
+                Official Google Maps Listing
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 

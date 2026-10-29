@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Calendar, MapPin, Mail, Phone, Settings } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../config/business';
 import { Logo } from './Logo';
+import { trackPhoneClick, trackBookingTrigger } from '../utils/analytics';
 
 interface HeaderProps {
   onOpenBooking: (serviceId?: string) => void;
@@ -15,10 +16,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onOpenConfig }) =
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Services & Pricing', path: '/services' },
-    { name: 'Sanctuary Gallery', path: '/gallery' },
-    { name: 'Contact & Map', path: '/contact' },
+    { name: 'About', path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Full Body Massage', path: '/full-body-massage' },
+    { name: 'Couple Spa', path: '/couple-spa' },
+    { name: 'Gallery', path: '/gallery' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -37,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onOpenConfig }) =
               <span>{BUSINESS_CONFIG.city}, {BUSINESS_CONFIG.state}</span>
             </span>
             <span className="hidden sm:inline text-[#8C8275]">·</span>
-            <span className="hidden sm:inline text-[#ECE4D8]/90">Mon–Sun 9:00 AM – 9:00 PM</span>
+            <span className="hidden sm:inline text-[#ECE4D8]/90">Open 24 Hours (24/7 Service)</span>
           </div>
 
           {/* Right Action Cluster: Contact & Settings */}
@@ -53,6 +56,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onOpenConfig }) =
             {BUSINESS_CONFIG.isPhoneConfigured && BUSINESS_CONFIG.phone && (
               <a 
                 href={`tel:${BUSINESS_CONFIG.phone.replace(/[^0-9+]/g, '')}`}
+                onClick={() => trackPhoneClick('header_utility', BUSINESS_CONFIG.phone!)}
                 className="hidden sm:flex items-center gap-1.5 hover:text-white transition-colors text-[#ECE4D8]"
                 title={`Call ${BUSINESS_CONFIG.phone}`}
               >
@@ -77,7 +81,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onOpenConfig }) =
 
       {/* 2. Main Navigation Bar: Brand Identity, Nav Links & Action Button */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 sm:gap-6 h-16 sm:h-20">
+        <div className="flex items-center justify-between gap-3 sm:gap-6 h-16 sm:h-20">
           
           {/* Brand Identity: Nandini Spa */}
           <Link 
@@ -88,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onOpenConfig }) =
           </Link>
 
           {/* Clean Navigation Links with Sage Accents */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#28231D]">
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-xs xl:text-sm font-medium text-[#28231D]">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -107,8 +111,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onOpenConfig }) =
           {/* Primary Action Button: Book Appointment */}
           <div className="hidden sm:flex items-center gap-3 shrink-0">
             <button
-              onClick={() => onOpenBooking()}
-              className="flex items-center gap-2 px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#446353] hover:bg-[#365143] rounded-sm transition-all shadow-xs hover:shadow-sm whitespace-nowrap shrink-0 cursor-pointer"
+              onClick={() => {
+                trackBookingTrigger('general', 'header_button');
+                onOpenBooking();
+              }}
+              className="flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#446353] hover:bg-[#365143] rounded-sm transition-all shadow-xs hover:shadow-sm whitespace-nowrap shrink-0 cursor-pointer"
             >
               <Calendar className="w-3.5 h-3.5" />
               <span>Book Appointment</span>
@@ -116,12 +123,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onOpenConfig }) =
           </div>
 
           {/* Mobile hamburger & quick call */}
-          <div className="flex items-center gap-1.5 md:hidden">
+          <div className="flex items-center gap-2 md:hidden">
             {BUSINESS_CONFIG.isPhoneConfigured && BUSINESS_CONFIG.phone && (
               <a
                 href={`tel:${BUSINESS_CONFIG.phone.replace(/[^0-9+]/g, '')}`}
+                onClick={() => trackPhoneClick('mobile_quick_call', BUSINESS_CONFIG.phone!)}
                 aria-label={`Call ${BUSINESS_CONFIG.phone}`}
-                className="p-2 text-[#446353] hover:text-[#365143] rounded-md bg-[#E7EFEA] hover:bg-[#d8e6dc] transition-colors"
+                className="w-10 h-10 flex items-center justify-center text-[#446353] hover:text-[#365143] rounded-md bg-[#E7EFEA] hover:bg-[#d8e6dc] transition-colors"
                 title={`Call ${BUSINESS_CONFIG.phone}`}
               >
                 <Phone className="w-4 h-4" />
@@ -130,7 +138,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onOpenConfig }) =
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle navigation menu"
-              className="p-2 text-[#28231D] hover:text-[#446353] rounded-md hover:bg-[#F3EFE6] transition-colors"
+              className="w-10 h-10 flex items-center justify-center text-[#28231D] hover:text-[#446353] rounded-md hover:bg-[#F3EFE6] transition-colors"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>

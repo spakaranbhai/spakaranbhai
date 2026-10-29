@@ -73,7 +73,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenConfig }) =
             <h4 className="font-serif text-sm uppercase tracking-widest text-[#FAF7F2] font-semibold mb-4">
               Explore Sanctuary
             </h4>
-            <ul className="flex flex-col gap-2.5 text-xs text-[#C5BBAF]">
+            <ul className="flex flex-col gap-2 text-xs text-[#C5BBAF]">
               <li>
                 <Link to="/" className="hover:text-[#FAF7F2] transition-colors">Sanctuary Home</Link>
               </li>
@@ -84,18 +84,22 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenConfig }) =
                 <Link to="/services" className="hover:text-[#FAF7F2] transition-colors">Treatments & Pricing</Link>
               </li>
               <li>
+                <Link to="/full-body-massage" className="hover:text-[#FAF7F2] transition-colors">Full Body Massage Bhopal</Link>
+              </li>
+              <li>
+                <Link to="/couple-spa" className="hover:text-[#FAF7F2] transition-colors">Couple Spa Bhopal</Link>
+              </li>
+              <li>
+                <Link to="/luxury-spa" className="hover:text-[#FAF7F2] transition-colors">Luxury Spa Experience</Link>
+              </li>
+              <li>
+                <Link to="/booking" className="hover:text-[#FAF7F2] transition-colors">Book Online Appointment</Link>
+              </li>
+              <li>
                 <Link to="/gallery" className="hover:text-[#FAF7F2] transition-colors">Ambiance Gallery</Link>
               </li>
               <li>
                 <Link to="/contact" className="hover:text-[#FAF7F2] transition-colors">Location & Directions</Link>
-              </li>
-              <li>
-                <button 
-                  onClick={onOpenBooking} 
-                  className="hover:text-[#FAF7F2] transition-colors text-left cursor-pointer"
-                >
-                  Online Reservation Form
-                </button>
               </li>
             </ul>
           </div>
@@ -201,10 +205,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenConfig }) =
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
-            <span className="text-[11px] text-[#C5BBAF]/70">
-              Centrally configured in <code className="text-[#FAF7F2] bg-[#28231D] px-1 py-0.5 rounded">src/config/business.ts</code>
-            </span>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <span>·</span>
+            <Link to="/terms" className="hover:text-white transition-colors">
+              Terms & Etiquette
+            </Link>
+            <span>·</span>
             {onOpenConfig && (
               <button
                 onClick={onOpenConfig}

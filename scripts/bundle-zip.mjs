@@ -20,6 +20,7 @@ fs.mkdirSync(stagingDir, { recursive: true });
 // Copy essential project files
 const itemsToCopy = [
   'src',
+  'scripts',
   'index.html',
   'package.json',
   'package-lock.json',

@@ -3,6 +3,7 @@ import { X, Calendar, Clock, User, Phone, Mail, Sparkles, CheckCircle2, AlertCir
 import { SPA_SERVICES, SpaService } from '../data/spaData';
 import { BUSINESS_CONFIG } from '../config/business';
 import { Logo } from './Logo';
+import { trackBookingCompleted } from '../utils/analytics';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -41,6 +42,22 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       setServiceId(preselectedServiceId);
     }
   }, [preselectedServiceId]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        handleResetAndClose();
+      }
+    };
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -81,14 +98,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     setTimeout(() => {
       setIsSubmitting(false);
       const refCode = `NANDINI-${Math.floor(100000 + Math.random() * 900000)}`;
+      const title = selectedService?.title || 'Sanctuary Treatment';
       setSubmittedData({
         referenceId: refCode,
         name,
         email,
-        serviceTitle: selectedService?.title || 'Sanctuary Treatment',
+        serviceTitle: title,
         date,
         time,
       });
+      trackBookingCompleted(refCode, title);
     }, 650);
   };
 
@@ -110,13 +129,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         className="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl border border-[#E3DACD] overflow-hidden my-auto sm:my-8 max-h-[92vh] flex flex-col"
         role="dialog"
         aria-modal="true"
+        aria-labelledby="booking-modal-title"
       >
         {/* Header — Warm Espresso (#201C17) */}
         <div className="bg-[#201C17] text-white px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between border-b border-[#332D26] shrink-0">
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
             <Logo variant="light" size="sm" showTagline={false} useFullBadge={false} />
             <div className="min-w-0">
-              <h3 className="font-serif text-lg sm:text-xl font-medium tracking-tight text-[#FAF7F2] truncate">
+              <h3 id="booking-modal-title" className="font-serif text-lg sm:text-xl font-medium tracking-tight text-[#FAF7F2] truncate">
                 Reserve Your Sanctuary Experience
               </h3>
               <p className="text-[11px] sm:text-xs text-[#7A9988] truncate">
@@ -202,10 +222,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
               {/* Service Selection */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                <label htmlFor="bm-service" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                   Select Treatment / Ritual *
                 </label>
                 <select
+                  id="bm-service"
                   value={serviceId}
                   onChange={(e) => setServiceId(e.target.value)}
                   className={`w-full px-3.5 py-2.5 rounded-md border text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-1 focus:ring-[#446353] transition-colors ${
@@ -238,16 +259,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {/* Name & Email Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                  <label htmlFor="bm-name" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                     Your Full Name *
                   </label>
                   <div className="relative">
                     <User className="w-4 h-4 text-[#8C8275] absolute left-3 top-3 pointer-events-none" />
                     <input
+                      id="bm-name"
                       type="text"
                       placeholder="e.g. Radhika Sharma"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                      aria-invalid={!!errors.name}
                       className={`w-full pl-9 pr-3.5 py-2.5 rounded-md border text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-1 focus:ring-[#446353] ${
                         errors.name ? 'border-red-400 bg-red-50/20' : 'border-[#E3DACD]'
                       }`}
@@ -257,16 +280,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                  <label htmlFor="bm-email" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                     Email Address *
                   </label>
                   <div className="relative">
                     <Mail className="w-4 h-4 text-[#8C8275] absolute left-3 top-3 pointer-events-none" />
                     <input
+                      id="bm-email"
                       type="email"
                       placeholder="e.g. radhika@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      aria-invalid={!!errors.email}
                       className={`w-full pl-9 pr-3.5 py-2.5 rounded-md border text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-1 focus:ring-[#446353] ${
                         errors.email ? 'border-red-400 bg-red-50/20' : 'border-[#E3DACD]'
                       }`}
@@ -279,12 +304,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {/* Mobile Phone & Number of Guests */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                  <label htmlFor="bm-mobile" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                     Mobile Number *
                   </label>
                   <div className="relative">
                     <Phone className="w-4 h-4 text-[#8C8275] absolute left-3 top-3 pointer-events-none" />
                     <input
+                      id="bm-mobile"
                       type="tel"
                       placeholder="10-digit mobile number"
                       value={mobile}
@@ -298,12 +324,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                  <label htmlFor="bm-guests" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                     Number of Guests
                   </label>
                   <div className="relative">
                     <Users className="w-4 h-4 text-[#8C8275] absolute left-3 top-3 pointer-events-none" />
                     <select
+                      id="bm-guests"
                       value={guests}
                       onChange={(e) => setGuests(e.target.value)}
                       className="w-full pl-9 pr-3.5 py-2.5 rounded-md border border-[#E3DACD] text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-1 focus:ring-[#446353]"
@@ -320,12 +347,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {/* Preferred Date & Time */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                  <label htmlFor="bm-date" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                     Preferred Date *
                   </label>
                   <div className="relative">
                     <Calendar className="w-4 h-4 text-[#8C8275] absolute left-3 top-3 pointer-events-none" />
                     <input
+                      id="bm-date"
                       type="date"
                       value={date}
                       onChange={(e) => setDate(e.target.value)}
@@ -338,26 +366,35 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                  <label htmlFor="bm-time" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                     Preferred Time Slot *
                   </label>
                   <div className="relative">
                     <Clock className="w-4 h-4 text-[#8C8275] absolute left-3 top-3 pointer-events-none" />
                     <select
+                      id="bm-time"
                       value={time}
                       onChange={(e) => setTime(e.target.value)}
                       className={`w-full pl-9 pr-3.5 py-2.5 rounded-md border text-sm text-[#28231D] bg-white focus:outline-hidden focus:ring-1 focus:ring-[#446353] ${
                         errors.time ? 'border-red-400 bg-red-50/20' : 'border-[#E3DACD]'
                       }`}
                     >
-                      <option value="">Select a preferred time</option>
-                      <option value="10:00 AM">Morning 10:00 AM</option>
-                      <option value="11:30 AM">Morning 11:30 AM</option>
-                      <option value="01:00 PM">Afternoon 01:00 PM</option>
-                      <option value="02:30 PM">Afternoon 02:30 PM</option>
-                      <option value="04:00 PM">Afternoon 04:00 PM</option>
-                      <option value="05:30 PM">Evening 05:30 PM</option>
-                      <option value="07:00 PM">Evening 07:00 PM</option>
+                      <option value="">Select a preferred time (24 Hours Available)</option>
+                      <option value="08:00 AM">Morning · 08:00 AM</option>
+                      <option value="10:00 AM">Morning · 10:00 AM</option>
+                      <option value="11:30 AM">Morning · 11:30 AM</option>
+                      <option value="01:00 PM">Afternoon · 01:00 PM</option>
+                      <option value="02:30 PM">Afternoon · 02:30 PM</option>
+                      <option value="04:00 PM">Late Afternoon · 04:00 PM</option>
+                      <option value="05:30 PM">Evening · 05:30 PM</option>
+                      <option value="07:00 PM">Evening · 07:00 PM</option>
+                      <option value="08:30 PM">Night · 08:30 PM</option>
+                      <option value="10:00 PM">Night · 10:00 PM</option>
+                      <option value="11:30 PM">Late Night · 11:30 PM</option>
+                      <option value="01:00 AM">Late Night (24h) · 01:00 AM</option>
+                      <option value="03:00 AM">Early Hours (24h) · 03:00 AM</option>
+                      <option value="05:00 AM">Early Hours (24h) · 05:00 AM</option>
+                      <option value="Immediate (24 Hours)">Immediate / Walk-in Now (24 Hours)</option>
                     </select>
                   </div>
                   {errors.time && <p className="text-red-600 text-xs mt-1">{errors.time}</p>}
@@ -366,10 +403,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
               {/* Special Requests or Health Notes */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
+                <label htmlFor="bm-notes" className="block text-xs font-semibold uppercase tracking-wider text-[#28231D] mb-1.5">
                   Pressure Preference or Special Focus Areas (Optional)
                 </label>
                 <textarea
+                  id="bm-notes"
                   rows={2}
                   placeholder="e.g. Focus on neck and shoulder tightness, prefer firm pressure, or any allergies..."
                   value={notes}

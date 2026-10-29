@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, Clock, Check, HelpCircle, ArrowRight } from 'lucide-react';
 import { SPA_SERVICES, SpaService } from '../data/spaData';
+import { SEOHead } from '../components/SEOHead';
+import { ROUTE_SEO, generateFAQSchema, generateBreadcrumbsSchema, getProductionBaseUrl } from '../data/seoData';
+import { trackBookingTrigger } from '../utils/analytics';
 
 interface ServicesPageProps {
   onOpenBooking: (serviceId?: string) => void;
@@ -13,6 +17,9 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const baseUrl = getProductionBaseUrl();
+  const seo = ROUTE_SEO.services;
 
   const categories = [
     'All',
@@ -51,17 +58,33 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
     },
   ];
 
+  const breadcrumbs = [
+    { name: 'Home', path: '/' },
+    { name: 'Services & Pricing', path: '/services' },
+  ];
+
+  const structuredData = [
+    generateBreadcrumbsSchema(baseUrl, breadcrumbs),
+    generateFAQSchema(faqs),
+  ];
+
   return (
     <div className="w-full bg-[#FAF7F2]">
+      <SEOHead config={seo} structuredData={structuredData} />
       
       {/* Page Header — Warm Espresso (#201C17) */}
       <section className="bg-[#201C17] text-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#332D26]">
         <div className="max-w-4xl mx-auto text-center">
+          <nav aria-label="Breadcrumb" className="mb-4 flex items-center justify-center gap-2 text-xs text-[#C5BBAF]">
+            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-[#7A9988] font-medium">Services & Pricing</span>
+          </nav>
           <div className="text-xs font-semibold uppercase tracking-widest text-[#7A9988] mb-2">
             The Nandini Menu · Bhopal
           </div>
-          <h1 className="font-serif text-4xl sm:text-5xl font-normal tracking-tight text-[#FAF7F2]">
-            Restorative Therapies & Rituals
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#FAF7F2]">
+            Restorative Therapies & Rituals in Bhopal
           </h1>
           <p className="mt-3 text-sm sm:text-base text-[#ECE4D8] font-light max-w-2xl mx-auto leading-relaxed">
             Explore our curated menu of musculoskeletal bodywork, hydrothermal stone care, and organic cellular facials. 
@@ -136,6 +159,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                       src={service.imageUrl}
                       alt={service.title}
                       loading="lazy"
+                      width="600"
+                      height="375"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       onError={(e) => {

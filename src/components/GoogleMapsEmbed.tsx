@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { MapPin, Navigation, ExternalLink, Check, Copy, Settings, Info, ChevronDown, ChevronUp, AlertCircle, RefreshCw } from 'lucide-react';
+import { MapPin, Navigation, ExternalLink, Check, Copy, Settings, Info, ChevronDown, ChevronUp, AlertCircle, RefreshCw, Phone } from 'lucide-react';
 import { BUSINESS_CONFIG } from '../config/business';
 
 interface GoogleMapsEmbedProps {
   heightClass?: string;
   showCardOverlay?: boolean;
   onOpenConfig?: () => void;
+  className?: string;
 }
 
 export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
   heightClass = 'h-[360px] sm:h-[450px] lg:h-[480px]',
   showCardOverlay = true,
   onOpenConfig,
+  className = '',
 }) => {
   const [copied, setCopied] = useState(false);
   const [isCardCollapsed, setIsCardCollapsed] = useState(false);
@@ -22,15 +24,8 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
     ? `${BUSINESS_CONFIG.streetAddressPlaceholder}, ${BUSINESS_CONFIG.city}, ${BUSINESS_CONFIG.state}`
     : `${BUSINESS_CONFIG.city}, ${BUSINESS_CONFIG.state}, ${BUSINESS_CONFIG.country} (${BUSINESS_CONFIG.streetAddressPlaceholder})`;
 
-  // Determine official Google Maps Embed URL
-  const apiKey = BUSINESS_CONFIG.maps.apiKey?.trim();
-  const addressQuery = encodeURIComponent(BUSINESS_CONFIG.streetAddressPlaceholder);
-
-  // If a valid Google Maps Platform API key is configured, use official Maps Embed API Place Mode
-  // Otherwise use the zero-config interactive embed that pins the exact address
-  const effectiveEmbedUrl = apiKey
-    ? `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${addressQuery}&center=${BUSINESS_CONFIG.maps.latitude},${BUSINESS_CONFIG.maps.longitude}&zoom=${BUSINESS_CONFIG.maps.zoomLevel}&solution_id=gmp_git_agentskills_v1`
-    : (BUSINESS_CONFIG.maps.embedUrl || `https://maps.google.com/maps?q=${addressQuery}&t=&z=${BUSINESS_CONFIG.maps.zoomLevel}&ie=UTF8&iwloc=B&output=embed`);
+  // Official verified Google Maps Embed URL for Nandini Spa, Bhopal
+  const effectiveEmbedUrl = BUSINESS_CONFIG.maps.embedUrl;
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(displayAddress);
@@ -56,7 +51,7 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
                 Loading official Google Maps location...
               </p>
               <span className="text-[11px] text-[#8C8275]">
-                {BUSINESS_CONFIG.locality || 'Mansarovar Complex, Shivaji Nagar'}, {BUSINESS_CONFIG.city}
+                {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city}
               </span>
             </div>
           </div>
@@ -97,12 +92,12 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
           </div>
         ) : (
           <iframe
-            title={`${BUSINESS_CONFIG.brandName} Official Location Map - ${BUSINESS_CONFIG.locality || 'Mansarovar Complex, Shivaji Nagar'}, ${BUSINESS_CONFIG.city}`}
+            title="Nandini Spa location on Google Maps"
             src={effectiveEmbedUrl}
             width="100%"
             height="100%"
             style={{ border: 0 }}
-            allowFullScreen={false}
+            allowFullScreen
             loading="lazy"
             referrerPolicy="strict-origin-when-cross-origin"
             className="w-full h-full filter saturate-[0.98] contrast-[1.01]"
@@ -131,11 +126,11 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
                       {BUSINESS_CONFIG.brandName}
                     </h4>
                     <span className="text-[10px] font-semibold tracking-wide uppercase px-1.5 py-0.5 bg-[#E7EFEA] text-[#446353] rounded shrink-0">
-                      Pin Active
+                      Verified Pin
                     </span>
                   </div>
                   <p className="text-xs text-[#685F53] mt-0.5 font-medium">
-                    {BUSINESS_CONFIG.locality || 'Mansarovar Complex, Shivaji Nagar'}, {BUSINESS_CONFIG.city}
+                    {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city}
                   </p>
                 </div>
               </div>
@@ -143,7 +138,7 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
               {/* Collapse/Expand Toggle for unobstructed map viewing */}
               <button
                 onClick={() => setIsCardCollapsed(!isCardCollapsed)}
-                className="p-1 rounded text-[#8C8275] hover:text-[#28231D] hover:bg-[#F3EFE6] transition-colors shrink-0"
+                className="p-1 rounded text-[#8C8275] hover:text-[#28231D] hover:bg-[#F3EFE6] transition-colors shrink-0 cursor-pointer"
                 title={isCardCollapsed ? 'Expand location card' : 'Collapse card for full map view'}
                 aria-label={isCardCollapsed ? 'Expand location card' : 'Collapse card for full map view'}
               >
@@ -171,6 +166,16 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
                     <ExternalLink className="w-2.5 h-2.5 ml-0.5 opacity-80" />
                   </a>
 
+                  {BUSINESS_CONFIG.isPhoneConfigured && BUSINESS_CONFIG.phone && (
+                    <a
+                      href={`tel:${BUSINESS_CONFIG.phone.replace(/[^0-9+]/g, '')}`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-[#F3EFE6] text-[#28231D] text-xs font-medium rounded-sm border border-[#E3DACD] transition-colors"
+                    >
+                      <Phone className="w-3 h-3 text-[#446353]" />
+                      <span>Call Now</span>
+                    </a>
+                  )}
+
                   <button
                     onClick={handleCopyAddress}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#F3EFE6] hover:bg-[#E3DACD] text-[#28231D] text-xs font-medium rounded-sm transition-colors cursor-pointer"
@@ -182,11 +187,11 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
                   {onOpenConfig && (
                     <button
                       onClick={onOpenConfig}
-                      className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-white hover:bg-[#F3EFE6] text-[#685F53] hover:text-[#28231D] text-xs rounded-sm transition-colors ml-auto cursor-pointer border border-[#E3DACD]"
+                      className="inline-flex items-center gap-1 px-2 py-1.5 bg-white hover:bg-[#F3EFE6] text-[#685F53] hover:text-[#28231D] text-xs rounded-sm transition-colors ml-auto cursor-pointer border border-[#E3DACD]"
                       title="Update address and maps in config"
                     >
                       <Settings className="w-3 h-3 text-[#446353]" />
-                      <span className="hidden sm:inline">Edit Location</span>
+                      <span className="hidden sm:inline">Settings</span>
                     </button>
                   )}
                 </div>
@@ -201,7 +206,7 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
         <div className="flex items-center gap-2">
           <Info className="w-3.5 h-3.5 text-[#446353] shrink-0" />
           <span>
-            Pin: {BUSINESS_CONFIG.locality || 'Mansarovar Complex, Shivaji Nagar'}, {BUSINESS_CONFIG.city} ({BUSINESS_CONFIG.maps.latitude.toFixed(4)}° N, {BUSINESS_CONFIG.maps.longitude.toFixed(4)}° E)
+            Pin: {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city} ({BUSINESS_CONFIG.maps.latitude.toFixed(4)}° N, {BUSINESS_CONFIG.maps.longitude.toFixed(4)}° E)
           </span>
         </div>
         <div className="flex items-center gap-3 text-[11px] text-[#685F53]">
