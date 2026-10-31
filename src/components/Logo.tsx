@@ -46,6 +46,8 @@ export const Logo: React.FC<LogoProps> = ({
         <img
           src={BUSINESS_CONFIG.logo?.horizontalUrl || BUSINESS_CONFIG.logo?.fullUrl || '/nandini-logo-horizontal.png'}
           alt={`${BUSINESS_CONFIG.brandName} - ${BUSINESS_CONFIG.city}`}
+          width="180"
+          height="52"
           className={`${badgeHeights} w-auto object-contain transition-transform duration-300 group-hover:scale-102 filter drop-shadow-xs`}
           onError={() => setImageError(true)}
         />
@@ -69,6 +71,8 @@ export const Logo: React.FC<LogoProps> = ({
           <img 
             src={BUSINESS_CONFIG.logo?.emblemUrl || '/nandini-emblem.png'} 
             alt={`${BUSINESS_CONFIG.brandName} Emblem`} 
+            width="48"
+            height="48"
             className="w-full h-full object-contain filter drop-shadow-xs" 
             onError={() => setImageError(true)}
           />

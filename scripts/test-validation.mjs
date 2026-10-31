@@ -19,18 +19,21 @@ function assert(condition, message) {
   }
 }
 
+const CANONICAL_DOMAIN = 'https://www.nandinispa.online';
+
 // 1. Validate sitemap.xml
 const sitemapPath = path.join(distDir, 'sitemap.xml');
 assert(fs.existsSync(sitemapPath), 'dist/sitemap.xml exists');
 if (fs.existsSync(sitemapPath)) {
   const content = fs.readFileSync(sitemapPath, 'utf8');
   assert(content.includes('<urlset'), 'sitemap.xml has <urlset>');
-  assert(content.includes('https://spakaranbhai.github.io/'), 'sitemap.xml contains homepage');
-  assert(content.includes('https://spakaranbhai.github.io/full-body-massage'), 'sitemap.xml contains /full-body-massage');
-  assert(content.includes('https://spakaranbhai.github.io/couple-spa'), 'sitemap.xml contains /couple-spa');
-  assert(content.includes('https://spakaranbhai.github.io/luxury-spa'), 'sitemap.xml contains /luxury-spa');
-  assert(content.includes('https://spakaranbhai.github.io/booking'), 'sitemap.xml contains /booking');
+  assert(content.includes(`${CANONICAL_DOMAIN}/`), 'sitemap.xml contains homepage');
+  assert(content.includes(`${CANONICAL_DOMAIN}/full-body-massage`), 'sitemap.xml contains /full-body-massage');
+  assert(content.includes(`${CANONICAL_DOMAIN}/couple-spa`), 'sitemap.xml contains /couple-spa');
+  assert(content.includes(`${CANONICAL_DOMAIN}/luxury-spa`), 'sitemap.xml contains /luxury-spa');
+  assert(content.includes(`${CANONICAL_DOMAIN}/booking`), 'sitemap.xml contains /booking');
   assert(!content.includes('/404'), 'sitemap.xml correctly excludes 404 page');
+  assert(!content.includes('github.io'), 'sitemap.xml contains zero github.io references');
 }
 
 // 2. Validate robots.txt
@@ -39,9 +42,10 @@ assert(fs.existsSync(robotsPath), 'dist/robots.txt exists');
 if (fs.existsSync(robotsPath)) {
   const content = fs.readFileSync(robotsPath, 'utf8');
   assert(content.includes('User-agent: *'), 'robots.txt allows all crawlers');
-  assert(content.includes('Sitemap: https://spakaranbhai.github.io/sitemap.xml'), 'robots.txt points to canonical sitemap');
+  assert(content.includes(`Sitemap: ${CANONICAL_DOMAIN}/sitemap.xml`), 'robots.txt points to canonical sitemap');
   assert(content.includes('Disallow: /*.zip$'), 'robots.txt blocks private zip files');
   assert(content.includes('Disallow: /404'), 'robots.txt blocks /404');
+  assert(!content.includes('github.io'), 'robots.txt contains zero github.io references');
 }
 
 // 2b. Validate Google Maps Integration & Exact Embed URL
@@ -55,6 +59,7 @@ if (fs.existsSync(businessConfigPath)) {
   assert(bContent.includes('77.4331738'), 'business.ts contains verified longitude 77.4331738');
   assert(bContent.includes('0x397c4306c83a65db%3A0x7d84842de233e7df') || bContent.includes('0x7d84842de233e7df'), 'business.ts directions URL references Nandini Spa place ID');
   assert(bContent.includes('24 Hours') || bContent.includes('24/7'), 'business.ts specifies 24-hour service');
+  assert(!bContent.includes('github.io'), 'business.ts contains zero github.io references');
 }
 
 // 2c. Validate 24-Hour Service Schema in index.html
@@ -64,6 +69,8 @@ if (fs.existsSync(indexHtmlPath)) {
   const iContent = fs.readFileSync(indexHtmlPath, 'utf8');
   assert(iContent.includes('"opens": "00:00"') && iContent.includes('"closes": "23:59"'), 'index.html Schema.org specifies 24-hour service (00:00 to 23:59)');
   assert(iContent.includes('24 hours') || iContent.includes('24/7'), 'index.html noscript specifies 24-hour service availability');
+  assert(iContent.includes(CANONICAL_DOMAIN), 'index.html has canonical domain');
+  assert(!iContent.includes('github.io'), 'index.html contains zero github.io references');
 }
 
 const mapsEmbedComponentPath = path.join(rootDir, 'src', 'components', 'GoogleMapsEmbed.tsx');
@@ -78,18 +85,18 @@ if (fs.existsSync(mapsEmbedComponentPath)) {
 
 // 3. Validate Prerendered HTML routes
 const routesToCheck = [
-  { file: 'index.html', title: 'Spa in Bhopal', canonical: 'https://spakaranbhai.github.io/' },
-  { file: 'about/index.html', title: 'About Nandini Spa', canonical: 'https://spakaranbhai.github.io/about' },
-  { file: 'services/index.html', title: 'Spa Services', canonical: 'https://spakaranbhai.github.io/services' },
-  { file: 'full-body-massage/index.html', title: 'Full Body Massage in Bhopal', canonical: 'https://spakaranbhai.github.io/full-body-massage' },
-  { file: 'couple-spa/index.html', title: 'Couple Spa in Bhopal', canonical: 'https://spakaranbhai.github.io/couple-spa' },
-  { file: 'luxury-spa/index.html', title: 'Luxury Spa in Bhopal', canonical: 'https://spakaranbhai.github.io/luxury-spa' },
-  { file: 'booking/index.html', title: 'Book Spa Appointment', canonical: 'https://spakaranbhai.github.io/booking' },
-  { file: 'gallery/index.html', title: 'Sanctuary Ambiance Gallery', canonical: 'https://spakaranbhai.github.io/gallery' },
-  { file: 'contact/index.html', title: 'Contact Nandini Spa', canonical: 'https://spakaranbhai.github.io/contact' },
-  { file: 'privacy-policy/index.html', title: 'Privacy Policy', canonical: 'https://spakaranbhai.github.io/privacy-policy' },
-  { file: 'terms/index.html', title: 'Terms & Sanctuary Etiquette', canonical: 'https://spakaranbhai.github.io/terms' },
-  { file: '404.html', title: 'Page Not Found (404)', canonical: 'https://spakaranbhai.github.io/404', robots: 'noindex, follow' },
+  { file: 'index.html', title: 'Spa in Bhopal', canonical: `${CANONICAL_DOMAIN}/` },
+  { file: 'about/index.html', title: 'About Nandini Spa', canonical: `${CANONICAL_DOMAIN}/about` },
+  { file: 'services/index.html', title: 'Spa Services', canonical: `${CANONICAL_DOMAIN}/services` },
+  { file: 'full-body-massage/index.html', title: 'Full Body Massage in Bhopal', canonical: `${CANONICAL_DOMAIN}/full-body-massage` },
+  { file: 'couple-spa/index.html', title: 'Couple Spa in Bhopal', canonical: `${CANONICAL_DOMAIN}/couple-spa` },
+  { file: 'luxury-spa/index.html', title: 'Luxury Spa in Bhopal', canonical: `${CANONICAL_DOMAIN}/luxury-spa` },
+  { file: 'booking/index.html', title: 'Book Spa Appointment', canonical: `${CANONICAL_DOMAIN}/booking` },
+  { file: 'gallery/index.html', title: 'Sanctuary Ambiance Gallery', canonical: `${CANONICAL_DOMAIN}/gallery` },
+  { file: 'contact/index.html', title: 'Contact Nandini Spa', canonical: `${CANONICAL_DOMAIN}/contact` },
+  { file: 'privacy-policy/index.html', title: 'Privacy Policy', canonical: `${CANONICAL_DOMAIN}/privacy-policy` },
+  { file: 'terms/index.html', title: 'Terms & Sanctuary Etiquette', canonical: `${CANONICAL_DOMAIN}/terms` },
+  { file: '404.html', title: 'Page Not Found (404)', canonical: `${CANONICAL_DOMAIN}/404`, robots: 'noindex, follow' },
 ];
 
 for (const r of routesToCheck) {
@@ -98,7 +105,7 @@ for (const r of routesToCheck) {
   if (fs.existsSync(filePath)) {
     const html = fs.readFileSync(filePath, 'utf8');
     assert(html.includes(r.title), `${r.file} contains expected title keyword (${r.title})`);
-    assert(html.includes(`canonical" href="${r.canonical}"`), `${r.file} has correct absolute canonical URL`);
+    assert(html.includes(`canonical" href="${r.canonical}"`), `${r.file} has correct absolute canonical URL (${r.canonical})`);
     
     if (r.robots) {
       assert(html.includes(`robots" content="${r.robots}"`), `${r.file} has explicit robots directive (${r.robots})`);
@@ -111,6 +118,7 @@ for (const r of routesToCheck) {
     assert(html.includes('name="twitter:card"'), `${r.file} has Twitter card`);
     assert(html.includes('application/ld+json'), `${r.file} has JSON-LD structured data`);
     assert(html.includes('<noscript>'), `${r.file} has static noscript fallback for non-JS crawlers`);
+    assert(!html.includes('github.io'), `${r.file} contains zero github.io references`);
 
     // Verify JSON-LD parses cleanly
     const jsonLdMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i);
@@ -119,7 +127,7 @@ for (const r of routesToCheck) {
       try {
         const parsed = JSON.parse(jsonLdMatch[1]);
         assert(parsed['@context'] === 'https://schema.org', `${r.file} JSON-LD has schema.org context`);
-        assert(parsed['@type'] !== undefined, `${r.file} JSON-LD has @type`);
+        assert(parsed['@type'] !== undefined || parsed['@graph'] !== undefined, `${r.file} JSON-LD has @type or @graph`);
       } catch (err) {
         assert(false, `${r.file} JSON-LD parse error: ${err.message}`);
       }

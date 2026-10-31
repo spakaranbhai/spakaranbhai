@@ -5,7 +5,7 @@ import { SPA_SERVICES, NANDINI_PILLARS, TESTIMONIALS, SpaService } from '../data
 import { BUSINESS_CONFIG } from '../config/business';
 import { GoogleMapsEmbed } from '../components/GoogleMapsEmbed';
 import { SEOHead } from '../components/SEOHead';
-import { ROUTE_SEO, generateLocalBusinessSchema, getProductionBaseUrl } from '../data/seoData';
+import { ROUTE_SEO, generateLocalBusinessSchema, generateWebSiteSchema, getProductionBaseUrl } from '../data/seoData';
 import { trackBookingTrigger, trackPhoneClick, trackDirectionsClick, trackWhatsAppClick } from '../utils/analytics';
 
 interface HomePageProps {
@@ -44,24 +44,29 @@ export const HomePage: React.FC<HomePageProps> = ({
     }
   };
   const baseUrl = getProductionBaseUrl();
-  const localBusinessSchema = generateLocalBusinessSchema(baseUrl);
+  const homeStructuredData = [
+    generateWebSiteSchema(baseUrl),
+    generateLocalBusinessSchema(baseUrl),
+  ];
 
   return (
     <div className="flex flex-col w-full bg-[#FAF7F2]">
-      <SEOHead config={ROUTE_SEO.home} structuredData={localBusinessSchema} />
+      <SEOHead config={ROUTE_SEO.home} structuredData={homeStructuredData} />
       
       {/* 1. Cinematic Hero Section — Warm organic spa imagery with gentle espresso-toned scrim */}
       <section className="relative w-full min-h-[540px] sm:min-h-[600px] lg:min-h-[660px] flex items-center bg-[#201C17] text-white overflow-hidden">
         {/* Background Spa Visual with Warm Natural Lighting */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1920&q=85"
+            src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1280&q=80"
+            srcSet="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=640&q=75 640w, https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1024&q=80 1024w, https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1600&q=80 1600w"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1600px"
             alt="Nandini Spa peaceful treatment suite in Bhopal"
             referrerPolicy="no-referrer"
             loading="eager"
             fetchPriority="high"
-            width="1920"
-            height="1080"
+            width="1600"
+            height="900"
             className="w-full h-full object-cover object-center filter brightness-[0.76] contrast-[1.05]"
           />
           {/* Warm Espresso and Terracotta Scrim */}
@@ -147,8 +152,11 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-xl overflow-hidden shadow-lg aspect-4/3 sm:aspect-5/4 bg-[#F3EFE6] border border-[#E3DACD]">
               <img
-                src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1000&q=80"
+                src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80"
                 alt="Therapist preparing restorative bodywork at Nandini Spa Bhopal"
+                loading="lazy"
+                width="800"
+                height="600"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
               />
@@ -328,6 +336,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                     src={service.imageUrl}
                     alt={service.title}
                     loading="lazy"
+                    width="400"
+                    height="260"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => {

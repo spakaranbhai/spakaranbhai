@@ -93,7 +93,7 @@ export const BUSINESS_CONFIG: BusinessConfig = {
   brandShort: "Nandini Spa",
   tagline: "Sanctuary of Restorative Spa & Holistic Bodywork",
   shortDescription: "An exquisite restorative wellness and spa sanctuary in Bhopal, Madhya Pradesh. Uniting therapeutic deep-tissue bodywork, warm basalt stone care, authentic Ayurvedic rituals, and calming botanical aromatherapy in quiet, climate-controlled suites.",
-  siteUrl: typeof import.meta !== "undefined" && import.meta.env?.VITE_SITE_URL ? import.meta.env.VITE_SITE_URL : "https://spakaranbhai.github.io",
+  siteUrl: typeof import.meta !== "undefined" && import.meta.env?.VITE_SITE_URL ? import.meta.env.VITE_SITE_URL : "https://www.nandinispa.online",
   zipFileName: "nandini-spa-project.zip",
   
   // Official Brand Logo (From user horizontal lockup: media_1793003978134)

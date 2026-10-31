@@ -53,6 +53,9 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
           <img
             src={service.imageUrl}
             alt={service.title}
+            width="800"
+            height="400"
+            loading="lazy"
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover"
             onError={(e) => {

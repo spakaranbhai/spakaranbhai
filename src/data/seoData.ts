@@ -18,7 +18,7 @@ export const getProductionBaseUrl = (): string => {
   if (typeof window !== 'undefined' && window.location.origin && !window.location.origin.includes('localhost') && !window.location.origin.includes('127.0.0.1')) {
     return window.location.origin.replace(/\/+$/, '');
   }
-  return (BUSINESS_CONFIG.siteUrl || 'https://spakaranbhai.github.io').replace(/\/+$/, '');
+  return (BUSINESS_CONFIG.siteUrl || 'https://www.nandinispa.online').replace(/\/+$/, '');
 };
 
 /**
@@ -292,6 +292,25 @@ export const generateLocalBusinessSchema = (baseUrl: string) => {
           priceCurrency: 'INR',
         },
       ],
+    },
+  };
+};
+
+/**
+ * Generate WebSite Schema.org JSON-LD
+ */
+export const generateWebSiteSchema = (baseUrl: string) => {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${baseUrl}/#website`,
+    name: BUSINESS_CONFIG.brandName,
+    alternateName: `${BUSINESS_CONFIG.brandName} Bhopal`,
+    url: baseUrl,
+    description: BUSINESS_CONFIG.shortDescription,
+    inLanguage: 'en-IN',
+    publisher: {
+      '@id': `${baseUrl}/#spa`,
     },
   };
 };

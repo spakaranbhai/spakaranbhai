@@ -1,9 +1,8 @@
 # Production robots.txt for Nandini Spa Bhopal
-# https://spakaranbhai.github.io
+# https://www.nandinispa.online/
 
 User-agent: *
 Allow: /
-Allow: /src/
 Allow: /assets/
 Allow: /*.css$
 Allow: /*.js$
@@ -16,6 +15,7 @@ Allow: /*.webp$
 # Disallow private archives & error pages
 Disallow: /*.zip$
 Disallow: /404
+Disallow: /404.html
 
 # XML Sitemap Pointer
-Sitemap: https://spakaranbhai.github.io/sitemap.xml
+Sitemap: https://www.nandinispa.online/sitemap.xml
