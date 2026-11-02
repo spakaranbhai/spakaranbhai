@@ -459,7 +459,7 @@ export const BookingPage: React.FC = () => {
               Our Sanctuary Location in Bhopal
             </h2>
             <p className="text-xs sm:text-sm text-[#685F53] mt-1">
-              Board Office Chouraha, Zone-II, Maharana Pratap Nagar, Bhopal
+              {BUSINESS_CONFIG.streetAddressPlaceholder}
             </p>
           </div>
           <GoogleMapsEmbed />

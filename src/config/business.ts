@@ -88,6 +88,20 @@ export interface BusinessConfig {
   };
 }
 
+/**
+ * Official Single Source of Truth for Business Location
+ */
+export const businessLocation = {
+  name: "Nandini Spa",
+  city: "Bhopal",
+  state: "Madhya Pradesh",
+  country: "India",
+  latitude: 23.231228599999998,
+  longitude: 77.43317379999999,
+  directionsUrl:
+    "https://www.google.com/maps/dir/?api=1&destination=23.231228599999998%2C77.43317379999999&travelmode=driving",
+};
+
 export const BUSINESS_CONFIG: BusinessConfig = {
   brandName: "Nandini Spa",
   brandShort: "Nandini Spa",
@@ -106,12 +120,12 @@ export const BUSINESS_CONFIG: BusinessConfig = {
   },
 
   // Official Location
-  city: "Bhopal",
-  state: "Madhya Pradesh",
-  country: "India",
-  locality: "Zone-II, Maharana Pratap Nagar",
-  zipCode: "462011",
-  streetAddressPlaceholder: "Board Office Chouraha, Zone-II, Maharana Pratap Nagar, Bhopal, Madhya Pradesh 462011",
+  city: businessLocation.city,
+  state: businessLocation.state,
+  country: businessLocation.country,
+  locality: "Bhopal",
+  zipCode: undefined,
+  streetAddressPlaceholder: "Nandini Spa, Bhopal, Madhya Pradesh",
   isExactStreetAddressConfigured: true,
 
   // Contact Information
@@ -129,12 +143,12 @@ export const BUSINESS_CONFIG: BusinessConfig = {
 
   // Google Maps Integration — Official verified listing for Nandini Spa, Bhopal
   maps: {
-    latitude: 23.2312286,
-    longitude: 77.4331738,
-    zoomLevel: 16,
-    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.325797556229!2d77.43317379999999!3d23.231228599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c4306c83a65db%3A0x7d84842de233e7df!2sNandini%20Spa!5e0!3m2!1sen!2sin!4v1793265164425!5m2!1sen!2sin",
-    placeUrl: "https://maps.google.com/?cid=9044390635205519327",
-    directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=Nandini+Spa&destination_place_id=0x397c4306c83a65db:0x7d84842de233e7df",
+    latitude: businessLocation.latitude,
+    longitude: businessLocation.longitude,
+    zoomLevel: 15,
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.325797556229!2d77.43317379999999!3d23.231228599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c4306c83a65db%3A0x7d84842de233e7df!2sNandini%20Spa!5e0!3m2!1sen!2sin!4v1793620022148!5m2!1sen!2sin",
+    placeUrl: businessLocation.directionsUrl,
+    directionsUrl: businessLocation.directionsUrl,
     apiKey: typeof import.meta !== "undefined" ? import.meta.env?.VITE_GOOGLE_MAPS_API_KEY : undefined,
   },
 
@@ -157,7 +171,7 @@ export const BUSINESS_CONFIG: BusinessConfig = {
  */
 export function getGoogleMapsEmbedUrl(query?: string, zoom = 16): string {
   // If no custom query is provided or query matches Nandini Spa, return the verified exact embed URL
-  if (!query || query.includes("Nandini") || query.includes("Board Office")) {
+  if (!query || query.includes("Nandini")) {
     return BUSINESS_CONFIG.maps.embedUrl;
   }
 
@@ -176,7 +190,10 @@ export function getGoogleMapsEmbedUrl(query?: string, zoom = 16): string {
 /**
  * Helper utility to build navigation directions URL pointing to destination
  */
-export function getGoogleMapsDirectionsUrl(destinationQuery: string): string {
+export function getGoogleMapsDirectionsUrl(destinationQuery?: string): string {
+  if (!destinationQuery || destinationQuery.includes("Nandini") || destinationQuery.includes("Bhopal")) {
+    return businessLocation.directionsUrl;
+  }
   const encoded = encodeURIComponent(destinationQuery);
-  return `https://www.google.com/maps/dir/?api=1&destination=${encoded}`;
+  return `https://www.google.com/maps/dir/?api=1&destination=${encoded}&travelmode=driving`;
 }

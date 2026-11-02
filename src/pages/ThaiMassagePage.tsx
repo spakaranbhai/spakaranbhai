@@ -36,7 +36,7 @@ export const ThaiMassagePage: React.FC<ThaiMassagePageProps> = ({ onOpenBooking 
     },
     {
       q: 'Where in Bhopal is Nandini Spa located for Thai massage sessions?',
-      a: 'Nandini Spa is located at Board Office Chouraha, Zone-II, Maharana Pratap Nagar (MP Nagar), Bhopal, Madhya Pradesh 462011. We are conveniently situated near DB City Mall, Arera Colony, and Habibganj.',
+      a: 'Nandini Spa is conveniently located in Bhopal, Madhya Pradesh, offering easy accessibility and dedicated sanctuary suites.',
     },
     {
       q: 'How can I book an authentic Thai massage appointment at Nandini Spa?',
@@ -138,7 +138,7 @@ export const ThaiMassagePage: React.FC<ThaiMassagePageProps> = ({ onOpenBooking 
 
           <p className="mt-4 text-sm sm:text-base text-[#ECE4D8] font-light max-w-2xl mx-auto leading-relaxed">
             Experience the ancient art of passive yoga stretching and rhythmic acupressure. 
-            Conducted on comfortable firm floor mats with loose clothing provided in our quiet sanctuary suites at Board Office Chouraha, MP Nagar.
+            Conducted on comfortable firm floor mats with loose clothing provided in our quiet sanctuary suites in Bhopal.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
@@ -335,10 +335,10 @@ export const ThaiMassagePage: React.FC<ThaiMassagePageProps> = ({ onOpenBooking 
               Sanctuary Location
             </span>
             <h3 className="font-serif text-2xl sm:text-3xl text-[#28231D] font-medium mt-1">
-              Visit Nandini Spa in MP Nagar, Bhopal
+              Visit Nandini Spa in Bhopal
             </h3>
             <p className="text-xs text-[#685F53] mt-2">
-              Located at Board Office Chouraha, Zone-II, Maharana Pratap Nagar, Bhopal. Open 24 hours daily.
+              {BUSINESS_CONFIG.streetAddressPlaceholder}. Open 24 hours daily.
             </p>
           </div>
 

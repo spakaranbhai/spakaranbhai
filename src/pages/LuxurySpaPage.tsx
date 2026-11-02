@@ -268,7 +268,7 @@ export const LuxurySpaPage: React.FC<LuxurySpaPageProps> = ({ onOpenBooking }) =
               Convenient Central Location in Bhopal
             </h2>
             <p className="text-xs sm:text-sm text-[#685F53] mt-2">
-              Board Office Chouraha, Zone-II, MP Nagar, Bhopal. Minutes away from DB City Mall and Habibganj Railway Station.
+              {BUSINESS_CONFIG.streetAddressPlaceholder}. Convenient access across Bhopal.
             </p>
           </div>
           <GoogleMapsEmbed />

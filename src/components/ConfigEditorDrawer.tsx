@@ -74,11 +74,11 @@ export const ConfigEditorDrawer: React.FC<ConfigEditorDrawerProps> = ({
   isWhatsappConfigured: ${isWhatsappConfigured},
   zipFileName: "${BUSINESS_CONFIG.zipFileName}",
   maps: {
-    latitude: 23.2242,
-    longitude: 77.4363,
-    zoomLevel: 16,
+    latitude: 23.231228599999998,
+    longitude: 77.43317379999999,
+    zoomLevel: 15,
     embedUrl: "${embedUrl}",
-    directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${streetAddress}, ${city}, Madhya Pradesh 462016, India`)}",
+    directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=23.231228599999998%2C77.43317379999999&travelmode=driving",
   },
   ...
 };`;
@@ -167,7 +167,7 @@ export const ConfigEditorDrawer: React.FC<ConfigEditorDrawerProps> = ({
                   handleAddressChangeAndRegenerateMap(e.target.value, city);
                 }}
                 className="w-full px-3 py-2 rounded border border-[#E3DACD] bg-white text-xs text-[#28231D] focus:ring-1 focus:ring-[#446353]"
-                placeholder="e.g. C-Block 1st floor, Mansarovar Complex, MF-30, Habibganj Rd, Shivaji Nagar, Bhopal"
+                placeholder="e.g. Nandini Spa, Bhopal, Madhya Pradesh"
               />
               <div className="mt-1 flex items-center gap-2">
                 <input
@@ -269,7 +269,7 @@ export const ConfigEditorDrawer: React.FC<ConfigEditorDrawerProps> = ({
                 <span>Google Maps API Key (Optional)</span>
               </div>
               <p className="text-[11px] text-[#685F53] leading-relaxed">
-                The embedded interactive map is already configured to pin <strong>Mansarovar Complex, Shivaji Nagar, Bhopal</strong>. To connect a dedicated Google Cloud Embed API key:
+                The embedded interactive map is already configured to pin <strong>Nandini Spa, Bhopal</strong>. To connect a dedicated Google Cloud Embed API key:
               </p>
               <ol className="list-decimal list-inside text-[11px] text-[#685F53] space-y-1 pl-1">
                 <li>Create or copy your key from <a href="https://console.cloud.google.com/google/maps-apis/credentials" target="_blank" rel="noopener noreferrer" className="text-[#446353] underline">Google Cloud Console</a>.</li>

@@ -27,10 +27,10 @@ export const getProductionBaseUrl = (): string => {
 export const ROUTE_SEO: Record<string, RouteSEOConfig> = {
   home: {
     title: 'Best Spa in Bhopal | Nandini Spa | Luxury Body Massage Sanctuary',
-    description: 'Discover Nandini Spa, the best luxury spa in Bhopal at Board Office Chouraha, MP Nagar. Full body massage, couple spa & Ayurvedic rituals. Call +91 90604 33848!',
+    description: 'Discover Nandini Spa, the best luxury spa in Bhopal. Full body massage, couple spa & Ayurvedic rituals. Call +91 90604 33848!',
     canonicalPath: '/',
     robots: 'index, follow',
-    keywords: 'Best Spa in Bhopal, Spa in Bhopal, Body Massage in Bhopal, Luxury Spa in Bhopal, Full Body Massage in Bhopal, Spa Near Me, Couple Spa in Bhopal, Bhopal Spa, Spa in MP Nagar Bhopal, Spa in Maharana Pratap Nagar Bhopal',
+    keywords: 'Best Spa in Bhopal, Spa in Bhopal, Body Massage in Bhopal, Luxury Spa in Bhopal, Full Body Massage in Bhopal, Spa Near Me, Couple Spa in Bhopal, Bhopal Spa',
     ogType: 'website',
     ogImage: '/nandini-spa-location-updated.png',
     h1: 'Best Spa in Bhopal — Luxury Body Massage & Wellness Sanctuary',
@@ -96,14 +96,14 @@ export const ROUTE_SEO: Record<string, RouteSEOConfig> = {
     h1: 'Traditional Thai Massage in Bhopal — Assisted Yoga Stretch & Mobility',
   },
   contact: {
-    title: 'Contact Nandini Spa Bhopal | Spa in MP Nagar, Maharana Pratap Nagar',
-    description: 'Contact Nandini Spa at Board Office Chouraha, Zone-II, MP Nagar, Bhopal. Open 24 hours daily. Call +91 90604 33848 or chat on WhatsApp for instant appointments & directions!',
+    title: 'Contact Nandini Spa Bhopal | Official Spa Location & Appointments',
+    description: 'Contact Nandini Spa in Bhopal, Madhya Pradesh. Open 24 hours daily. Call +91 90604 33848 or chat on WhatsApp for instant appointments & Google Maps directions!',
     canonicalPath: '/contact',
     robots: 'index, follow',
-    keywords: 'Spa in Maharana Pratap Nagar Bhopal, Spa in MP Nagar Bhopal, Nandini Spa Bhopal Contact, Board Office Chouraha Spa, Spa Directions Bhopal, Spa Near Me Bhopal, Massage Services in Bhopal',
+    keywords: 'Nandini Spa Bhopal, Spa in Bhopal, Nandini Spa Contact, Spa Directions Bhopal, Spa Near Me Bhopal, Massage Services in Bhopal',
     ogType: 'place',
     ogImage: '/nandini-spa-location-updated.png',
-    h1: 'Contact Nandini Spa — Spa in Maharana Pratap Nagar, Bhopal',
+    h1: 'Contact Nandini Spa — Official Bhopal Location & Concierge',
   },
   booking: {
     title: 'Book Spa Appointment in Bhopal | Nandini Spa Online Reservation',
@@ -185,7 +185,7 @@ export const generateLocalBusinessSchema = (baseUrl: string) => {
       streetAddress: BUSINESS_CONFIG.streetAddressPlaceholder,
       addressLocality: BUSINESS_CONFIG.city,
       addressRegion: BUSINESS_CONFIG.state,
-      postalCode: BUSINESS_CONFIG.zipCode || '462011',
+      ...(BUSINESS_CONFIG.zipCode ? { postalCode: BUSINESS_CONFIG.zipCode } : {}),
       addressCountry: 'IN',
     },
     geo: {
@@ -306,7 +306,7 @@ export const generateLocalBusinessSchema = (baseUrl: string) => {
           itemOffered: {
             '@type': 'Service',
             name: 'Traditional Thai Assisted Stretch & Mobility',
-            description: 'Dynamic mat bodywork combining acupressure along Sen energy lines with assisted yoga-based passive stretches in MP Nagar.',
+            description: 'Dynamic mat bodywork combining acupressure along Sen energy lines with assisted yoga-based passive stretches in Bhopal.',
           },
           price: '2899',
           priceCurrency: 'INR',

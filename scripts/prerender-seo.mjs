@@ -16,19 +16,18 @@ const BASE_URL = (process.env.VITE_SITE_URL || 'https://www.nandinispa.online').
 
 const NAP_DETAILS = {
   name: 'Nandini Spa',
-  streetAddress: 'Board Office Chouraha, Zone-II, Maharana Pratap Nagar',
+  streetAddress: 'Nandini Spa, Bhopal',
   addressLocality: 'Bhopal',
   addressRegion: 'Madhya Pradesh',
-  postalCode: '462011',
   country: 'IN',
   phone: '+91 90604 33848',
   phoneTel: '+919060433848',
   email: 'Karanbhai25807@gmail.com',
   hours: 'Open 24 Hours (Monday – Sunday) / 24/7 Round-the-Clock Service',
-  latitude: 23.2312286,
-  longitude: 77.4331738,
-  mapsUrl: 'https://maps.google.com/?cid=9044390635205519327',
-  embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.325797556229!2d77.43317379999999!3d23.231228599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c4306c83a65db%3A0x7d84842de233e7df!2sNandini%20Spa!5e0!3m2!1sen!2sin!4v1793265164425!5m2!1sen!2sin',
+  latitude: 23.231228599999998,
+  longitude: 77.43317379999999,
+  mapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=23.231228599999998%2C77.43317379999999&travelmode=driving',
+  embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.325797556229!2d77.43317379999999!3d23.231228599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c4306c83a65db%3A0x7d84842de233e7df!2sNandini%20Spa!5e0!3m2!1sen!2sin!4v1793620022148!5m2!1sen!2sin',
 };
 
 const routes = [
@@ -36,15 +35,15 @@ const routes = [
     path: '/',
     outputPath: path.join(distDir, 'index.html'),
     title: 'Best Spa in Bhopal | Nandini Spa | Luxury Body Massage Sanctuary',
-    description: 'Discover Nandini Spa, the best luxury spa in Bhopal at Board Office Chouraha, MP Nagar. Full body massage, couple spa & Ayurvedic rituals. Call +91 90604 33848!',
+    description: 'Discover Nandini Spa, the best luxury spa in Bhopal. Full body massage, couple spa & Ayurvedic rituals. Call +91 90604 33848!',
     h1: 'Best Spa in Bhopal — Luxury Body Massage & Wellness Sanctuary',
     ogImage: '/nandini-spa-location-updated.png',
     robots: 'index, follow',
-    summary: 'Therapeutic musculoskeletal bodywork, hydrothermal volcanic basalt stones, and authentic Ayurvedic rituals in private climate-controlled suites in MP Nagar, Bhopal.',
+    summary: 'Therapeutic musculoskeletal bodywork, hydrothermal volcanic basalt stones, and authentic Ayurvedic rituals in private climate-controlled suites in Bhopal.',
     faqs: [
       {
         q: 'Where is Nandini Spa located in Bhopal?',
-        a: 'Nandini Spa is centrally located at Board Office Chouraha, Zone-II, Maharana Pratap Nagar (MP Nagar), Bhopal, Madhya Pradesh 462011, near DB City Mall and Habibganj.',
+        a: 'Nandini Spa is located in Bhopal, Madhya Pradesh, conveniently accessible for local residents and visitors across the city.',
       },
       {
         q: 'What are the operating hours of Nandini Spa?',
@@ -93,7 +92,7 @@ const routes = [
           streetAddress: NAP_DETAILS.streetAddress,
           addressLocality: NAP_DETAILS.addressLocality,
           addressRegion: NAP_DETAILS.addressRegion,
-          postalCode: NAP_DETAILS.postalCode,
+          ...(NAP_DETAILS.postalCode ? { postalCode: NAP_DETAILS.postalCode } : {}),
           addressCountry: NAP_DETAILS.country,
         },
         geo: {
@@ -249,7 +248,7 @@ const routes = [
       },
       {
         q: 'Where in Bhopal is Nandini Spa located for body massage appointments?',
-        a: 'Nandini Spa is located at Board Office Chouraha, Zone-II, Maharana Pratap Nagar (MP Nagar), Bhopal, Madhya Pradesh 462011, near Arera Colony, DB City Mall, and Shivaji Nagar.',
+        a: 'Nandini Spa is conveniently located in Bhopal, Madhya Pradesh, easily accessible for treatments.',
       },
     ],
     structuredData: [
@@ -300,7 +299,7 @@ const routes = [
             name: 'Where in Bhopal is Nandini Spa located for body massage appointments?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Nandini Spa is located at Board Office Chouraha, Zone-II, Maharana Pratap Nagar (MP Nagar), Bhopal, Madhya Pradesh 462011.',
+              text: 'Nandini Spa is conveniently located in Bhopal, Madhya Pradesh.',
             },
           },
         ],
@@ -436,7 +435,7 @@ const routes = [
       },
       {
         q: 'Where in Bhopal is Nandini Spa located for Thai massage?',
-        a: 'Nandini Spa is located at Board Office Chouraha, Zone-II, Maharana Pratap Nagar (MP Nagar), Bhopal, Madhya Pradesh 462011.',
+        a: 'Nandini Spa is conveniently located in Bhopal, Madhya Pradesh.',
       },
     ],
     structuredData: [
@@ -487,7 +486,7 @@ const routes = [
             name: 'Where in Bhopal is Nandini Spa located for Thai massage?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Nandini Spa is located at Board Office Chouraha, Zone-II, Maharana Pratap Nagar (MP Nagar), Bhopal, Madhya Pradesh 462011.',
+              text: 'Nandini Spa is conveniently located in Bhopal, Madhya Pradesh.',
             },
           },
         ],
@@ -552,12 +551,12 @@ const routes = [
   {
     path: '/contact',
     outputPath: path.join(distDir, 'contact', 'index.html'),
-    title: 'Contact Nandini Spa Bhopal | Spa in MP Nagar, Maharana Pratap Nagar',
-    description: 'Contact Nandini Spa at Board Office Chouraha, Zone-II, MP Nagar, Bhopal. Open 24 hours daily. Call +91 90604 33848 or chat on WhatsApp for instant appointments & directions!',
-    h1: 'Contact Nandini Spa — Spa in Maharana Pratap Nagar, Bhopal',
+    title: 'Contact Nandini Spa Bhopal | Official Spa Location & Appointments',
+    description: 'Contact Nandini Spa in Bhopal, Madhya Pradesh. Open 24 hours daily. Call +91 90604 33848 or chat on WhatsApp for instant appointments & Google Maps directions!',
+    h1: 'Contact Nandini Spa — Official Bhopal Location & Concierge',
     ogImage: '/nandini-spa-location-updated.png',
     robots: 'index, follow',
-    summary: 'Official contact and location directory for Nandini Spa at Board Office Chouraha, Zone-II, MP Nagar, Bhopal.',
+    summary: 'Official contact and location directory for Nandini Spa in Bhopal, Madhya Pradesh.',
     breadcrumbs: [
       { name: 'Home', path: '/' },
       { name: 'Contact & Location', path: '/contact' },
@@ -578,7 +577,7 @@ const routes = [
             streetAddress: NAP_DETAILS.streetAddress,
             addressLocality: NAP_DETAILS.addressLocality,
             addressRegion: NAP_DETAILS.addressRegion,
-            postalCode: NAP_DETAILS.postalCode,
+            ...(NAP_DETAILS.postalCode ? { postalCode: NAP_DETAILS.postalCode } : {}),
             addressCountry: NAP_DETAILS.country,
           },
         },
@@ -691,7 +690,7 @@ for (const route of routes) {
       <!-- Prerendered Semantic HTML Content for Search Engine Crawlers & Fast Initial Paint -->
       <header style="background:#201C17; color:#FAF7F2; padding:24px 20px; text-align:center;">
         <h1>${route.h1}</h1>
-        <p>Nandini Spa — ${NAP_DETAILS.streetAddress}, ${NAP_DETAILS.addressLocality}, ${NAP_DETAILS.addressRegion} ${NAP_DETAILS.postalCode} · Phone: <a href="tel:${NAP_DETAILS.phoneTel}" style="color:#ECE4D8;">${NAP_DETAILS.phone}</a> · ${NAP_DETAILS.hours}</p>
+        <p>Nandini Spa — ${NAP_DETAILS.streetAddress}, ${NAP_DETAILS.addressLocality}, ${NAP_DETAILS.addressRegion}${NAP_DETAILS.postalCode ? ' ' + NAP_DETAILS.postalCode : ''} · Phone: <a href="tel:${NAP_DETAILS.phoneTel}" style="color:#ECE4D8;">${NAP_DETAILS.phone}</a> · ${NAP_DETAILS.hours}</p>
         <nav style="margin-top:14px; font-size:13px;">
           <a href="/" style="color:#7A9988; margin:0 8px;">Home</a>
           <a href="/about" style="color:#7A9988; margin:0 8px;">About Us</a>

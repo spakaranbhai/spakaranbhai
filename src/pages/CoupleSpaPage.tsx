@@ -265,10 +265,10 @@ export const CoupleSpaPage: React.FC<CoupleSpaPageProps> = ({ onOpenBooking }) =
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mx-auto text-center mb-8">
             <h2 className="font-serif text-2xl sm:text-3xl text-[#28231D]">
-              Visit Nandini Spa at MP Nagar, Bhopal
+              Visit Nandini Spa in Bhopal
             </h2>
             <p className="text-xs sm:text-sm text-[#685F53] mt-2">
-              Board Office Chouraha, Zone-II, Maharana Pratap Nagar, Bhopal. Secure underground parking available.
+              {BUSINESS_CONFIG.streetAddressPlaceholder}. Secure underground parking available.
             </p>
           </div>
           <GoogleMapsEmbed />

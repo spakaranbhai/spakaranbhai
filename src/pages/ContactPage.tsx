@@ -166,7 +166,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
                 <div>
                   <div className="text-xs uppercase tracking-wider text-[#685F53] font-semibold">City & Office Address</div>
                   <div className="text-sm font-semibold text-[#28231D] mt-0.5">
-                    {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city}
+                    {BUSINESS_CONFIG.city}, {BUSINESS_CONFIG.state}
                   </div>
                   <div className="text-xs text-[#685F53] mt-1 leading-relaxed">
                     {BUSINESS_CONFIG.streetAddressPlaceholder}
@@ -401,13 +401,13 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
             <div className="max-w-3xl">
               <div className="text-xs font-semibold uppercase tracking-widest text-[#446353] mb-2">
-                Maharana Pratap Nagar Bhopal Spa & Official Location
+                Bhopal Spa & Official Location
               </div>
               <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#28231D] font-normal tracking-tight">
-                Find Nandini Spa in MP Nagar, Bhopal
+                Find Nandini Spa in Bhopal
               </h2>
               <p className="mt-3 text-xs sm:text-sm text-[#685F53] leading-relaxed">
-                Centrally situated at Board Office Chouraha in Zone-II, MP Nagar, Nandini Spa is Bhopal’s serene sanctuary for certified musculoskeletal bodywork and restorative holistic therapy. Whether you need a rejuvenating{' '}
+                Centrally situated in Bhopal, Madhya Pradesh, Nandini Spa is Bhopal’s serene sanctuary for certified musculoskeletal bodywork and restorative holistic therapy. Whether you need a rejuvenating{' '}
                 <Link to="/full-body-massage" className="text-[#446353] font-medium hover:underline">
                   Full Body Massage in Bhopal
                 </Link>
@@ -489,7 +489,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
               </div>
               <div>
                 <div className="font-semibold text-[#28231D]">
-                  {BUSINESS_CONFIG.brandName} · {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city}
+                  {BUSINESS_CONFIG.brandName} · {BUSINESS_CONFIG.city}, {BUSINESS_CONFIG.state}
                 </div>
                 <div className="text-[#685F53] mt-0.5">
                   {BUSINESS_CONFIG.streetAddressPlaceholder} (Coordinates: {BUSINESS_CONFIG.maps.latitude.toFixed(4)}° N, {BUSINESS_CONFIG.maps.longitude.toFixed(4)}° E)

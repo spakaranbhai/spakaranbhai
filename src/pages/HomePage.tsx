@@ -492,13 +492,13 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-8">
           <div className="lg:col-span-6">
             <div className="text-xs font-semibold uppercase tracking-widest text-[#446353] mb-2">
-              Maharana Pratap Nagar Bhopal Spa & Official Location
+              Bhopal Spa & Official Location
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl text-[#28231D] font-normal tracking-tight">
-              Visit Nandini Spa in MP Nagar, Bhopal
+              Visit Nandini Spa in Bhopal
             </h2>
             <p className="mt-4 text-sm text-[#685F53] leading-relaxed">
-              Centrally accessible at Board Office Chouraha, Zone-II, MP Nagar, Bhopal. Experience an oasis of tranquility offering therapeutic{' '}
+              Centrally accessible in Bhopal, Madhya Pradesh. Experience an oasis of tranquility offering therapeutic{' '}
               <Link to="/full-body-massage" className="text-[#446353] font-medium hover:underline">
                 Full Body Massage in Bhopal
               </Link>
@@ -575,7 +575,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {BUSINESS_CONFIG.isWhatsappConfigured && BUSINESS_CONFIG.whatsappNumber && (
                 <a
-                  href={`https://wa.me/${BUSINESS_CONFIG.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Hello Nandini Spa, I would like to inquire about spa appointments in MP Nagar, Bhopal.")}`}
+                  href={`https://wa.me/${BUSINESS_CONFIG.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Hello Nandini Spa, I would like to inquire about spa appointments in Bhopal.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackWhatsAppClick('home_location_section')}

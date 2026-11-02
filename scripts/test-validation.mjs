@@ -43,22 +43,36 @@ assert(fs.existsSync(robotsPath), 'dist/robots.txt exists');
 if (fs.existsSync(robotsPath)) {
   const content = fs.readFileSync(robotsPath, 'utf8');
   assert(content.includes('User-agent: *'), 'robots.txt allows all crawlers');
+  assert(content.includes('Allow: /'), 'robots.txt allows root and pages');
+  assert(content.includes('Allow: /assets/'), 'robots.txt explicitly allows assets directory for rendering');
   assert(content.includes(`Sitemap: ${CANONICAL_DOMAIN}/sitemap.xml`), 'robots.txt points to canonical sitemap');
   assert(content.includes('Disallow: /*.zip$'), 'robots.txt blocks private zip files');
   assert(content.includes('Disallow: /404'), 'robots.txt blocks /404');
   assert(!content.includes('github.io'), 'robots.txt contains zero github.io references');
 }
 
+// 2a. Validate vercel.json headers & host redirects
+const vercelConfigPath = path.join(rootDir, 'vercel.json');
+assert(fs.existsSync(vercelConfigPath), 'vercel.json exists');
+if (fs.existsSync(vercelConfigPath)) {
+  const vContent = fs.readFileSync(vercelConfigPath, 'utf8');
+  assert(vContent.includes('text/plain; charset=UTF-8'), 'vercel.json sets text/plain charset for robots.txt');
+  assert(vContent.includes('application/xml; charset=UTF-8'), 'vercel.json sets application/xml charset for sitemap.xml');
+  assert(vContent.includes('must-revalidate'), 'vercel.json enforces must-revalidate on robots.txt and sitemap.xml');
+  assert(vContent.includes('https://www.nandinispa.online/$1'), 'vercel.json redirects non-www to canonical www domain');
+}
+
 // 2b. Validate Google Maps Integration & Exact Embed URL
-const EXACT_MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.325797556229!2d77.43317379999999!3d23.231228599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c4306c83a65db%3A0x7d84842de233e7df!2sNandini%20Spa!5e0!3m2!1sen!2sin!4v1793265164425!5m2!1sen!2sin";
+const EXACT_MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.325797556229!2d77.43317379999999!3d23.231228599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c4306c83a65db%3A0x7d84842de233e7df!2sNandini%20Spa!5e0!3m2!1sen!2sin!4v1793620022148!5m2!1sen!2sin";
+const EXACT_DIRECTIONS_URL = "https://www.google.com/maps/dir/?api=1&destination=23.231228599999998%2C77.43317379999999&travelmode=driving";
 const businessConfigPath = path.join(rootDir, 'src', 'config', 'business.ts');
 assert(fs.existsSync(businessConfigPath), 'src/config/business.ts exists');
 if (fs.existsSync(businessConfigPath)) {
   const bContent = fs.readFileSync(businessConfigPath, 'utf8');
   assert(bContent.includes(EXACT_MAPS_EMBED_URL), 'business.ts contains exact Google Maps embed URL for Nandini Spa');
-  assert(bContent.includes('23.2312286'), 'business.ts contains verified latitude 23.2312286');
-  assert(bContent.includes('77.4331738'), 'business.ts contains verified longitude 77.4331738');
-  assert(bContent.includes('0x397c4306c83a65db%3A0x7d84842de233e7df') || bContent.includes('0x7d84842de233e7df'), 'business.ts directions URL references Nandini Spa place ID');
+  assert(bContent.includes('23.231228599999998'), 'business.ts contains verified latitude 23.231228599999998');
+  assert(bContent.includes('77.43317379999999'), 'business.ts contains verified longitude 77.43317379999999');
+  assert(bContent.includes(EXACT_DIRECTIONS_URL), 'business.ts directions URL references exact coordinates to avoid Kolkata redirection');
   assert(bContent.includes('24 Hours') || bContent.includes('24/7'), 'business.ts specifies 24-hour service');
   assert(!bContent.includes('github.io'), 'business.ts contains zero github.io references');
 }

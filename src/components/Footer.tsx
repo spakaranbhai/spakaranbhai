@@ -138,7 +138,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenConfig }) =
                 <MapPin className="w-4 h-4 text-[#7A9988] shrink-0 mt-0.5" />
                 <div>
                   <div className="font-semibold text-[#FAF7F2]">
-                    {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city}
+                    {BUSINESS_CONFIG.brandName}, {BUSINESS_CONFIG.city}
                   </div>
                   <div className="text-[11px] text-[#C5BBAF]/80 mt-0.5">
                     {BUSINESS_CONFIG.streetAddressPlaceholder}

@@ -51,7 +51,7 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
                 Loading official Google Maps location...
               </p>
               <span className="text-[11px] text-[#8C8275]">
-                {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city}
+                {BUSINESS_CONFIG.brandName}, {BUSINESS_CONFIG.city}
               </span>
             </div>
           </div>
@@ -130,7 +130,7 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
                     </span>
                   </div>
                   <p className="text-xs text-[#685F53] mt-0.5 font-medium">
-                    {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city}
+                    {BUSINESS_CONFIG.city}, {BUSINESS_CONFIG.state}
                   </p>
                 </div>
               </div>
@@ -206,7 +206,7 @@ export const GoogleMapsEmbed: React.FC<GoogleMapsEmbedProps> = ({
         <div className="flex items-center gap-2">
           <Info className="w-3.5 h-3.5 text-[#446353] shrink-0" />
           <span>
-            Pin: {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city} ({BUSINESS_CONFIG.maps.latitude.toFixed(4)}° N, {BUSINESS_CONFIG.maps.longitude.toFixed(4)}° E)
+            Pin: {BUSINESS_CONFIG.brandName}, {BUSINESS_CONFIG.city} ({BUSINESS_CONFIG.maps.latitude.toFixed(4)}° N, {BUSINESS_CONFIG.maps.longitude.toFixed(4)}° E)
           </span>
         </div>
         <div className="flex items-center gap-3 text-[11px] text-[#685F53]">

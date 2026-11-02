@@ -3,14 +3,9 @@
 
 User-agent: *
 Allow: /
+
+# Explicit resource access for Googlebot smartphone & rendering engines
 Allow: /assets/
-Allow: /*.css$
-Allow: /*.js$
-Allow: /*.png$
-Allow: /*.jpg$
-Allow: /*.jpeg$
-Allow: /*.svg$
-Allow: /*.webp$
 
 # Disallow private archives & error pages
 Disallow: /*.zip$

@@ -32,7 +32,7 @@ export const FullBodyMassagePage: React.FC<FullBodyMassagePageProps> = ({ onOpen
     },
     {
       q: 'Where in Bhopal is Nandini Spa located for body massage appointments?',
-      a: 'Nandini Spa is conveniently located at Board Office Chouraha, Zone-II, Maharana Pratap Nagar (MP Nagar), Bhopal, Madhya Pradesh 462011. We are easily accessible from Arera Colony, DB City Mall, Shivaji Nagar, and Habibganj.',
+      a: 'Nandini Spa is conveniently located in Bhopal, Madhya Pradesh. We are easily accessible across the city.',
     },
     {
       q: 'How do I book a full body massage slot in Bhopal?',
