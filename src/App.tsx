@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
 import { ServiceDetailModal } from './components/ServiceDetailModal';
 import { ConfigEditorDrawer } from './components/ConfigEditorDrawer';
+import { MobileQuickActionBar } from './components/MobileQuickActionBar';
 import { SpaService } from './data/spaData';
 import { initGA, trackPageView } from './utils/analytics';
 
@@ -15,6 +16,7 @@ const ServicesPage = lazy(() => import('./pages/ServicesPage').then((m) => ({ de
 const FullBodyMassagePage = lazy(() => import('./pages/FullBodyMassagePage').then((m) => ({ default: m.FullBodyMassagePage })));
 const CoupleSpaPage = lazy(() => import('./pages/CoupleSpaPage').then((m) => ({ default: m.CoupleSpaPage })));
 const LuxurySpaPage = lazy(() => import('./pages/LuxurySpaPage').then((m) => ({ default: m.LuxurySpaPage })));
+const ThaiMassagePage = lazy(() => import('./pages/ThaiMassagePage').then((m) => ({ default: m.ThaiMassagePage })));
 const BookingPage = lazy(() => import('./pages/BookingPage').then((m) => ({ default: m.BookingPage })));
 const GalleryPage = lazy(() => import('./pages/GalleryPage').then((m) => ({ default: m.GalleryPage })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then((m) => ({ default: m.ContactPage })));
@@ -92,7 +94,7 @@ export default function App() {
         Skip to main content
       </a>
 
-      <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#28231D] selection:bg-[#E7EFEA] selection:text-[#365143] font-sans">
+      <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#28231D] selection:bg-[#E7EFEA] selection:text-[#365143] font-sans pb-14 lg:pb-0">
         
         {/* Responsive Header */}
         <Header 
@@ -153,6 +155,15 @@ export default function App() {
                 element={
                   <LuxurySpaPage 
                     onOpenBooking={handleOpenBooking} 
+                  />
+                } 
+              />
+              <Route 
+                path="/thai-massage" 
+                element={
+                  <ThaiMassagePage 
+                    onOpenBooking={handleOpenBooking}
+                    onSelectService={handleOpenDetail}
                   />
                 } 
               />
@@ -224,6 +235,11 @@ export default function App() {
         <ConfigEditorDrawer
           isOpen={isConfigDrawerOpen}
           onClose={() => setIsConfigDrawerOpen(false)}
+        />
+
+        {/* High-Converting Mobile Sticky Quick Action Bar & Desktop Floating Contacts */}
+        <MobileQuickActionBar 
+          onOpenBooking={() => handleOpenBooking()} 
         />
 
       </div>

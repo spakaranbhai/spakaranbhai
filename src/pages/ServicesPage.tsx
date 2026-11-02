@@ -228,6 +228,95 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             ))}
           </div>
         )}
+
+        {/* Specialized Service Dedicated Landing Pages for Local Guests */}
+        <div className="mt-16 p-6 sm:p-8 bg-[#FAF7F2] rounded-2xl border border-[#E3DACD]">
+          <div className="max-w-2xl mb-6">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#446353]">
+              Specialized Therapies & Private Suites
+            </span>
+            <h3 className="font-serif text-xl sm:text-2xl text-[#28231D] font-medium mt-1">
+              Explore Our Signature Spa Categories in MP Nagar, Bhopal
+            </h3>
+            <p className="text-xs text-[#685F53] mt-1">
+              Dedicated private suites, certified kinesiologists, and tailored treatment programs.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link
+              to="/full-body-massage"
+              className="p-4 bg-white rounded-xl border border-[#E3DACD] hover:border-[#446353] transition-colors group flex flex-col justify-between"
+            >
+              <div>
+                <h4 className="font-serif text-base font-semibold text-[#28231D] group-hover:text-[#446353] transition-colors">
+                  Full Body Massage
+                </h4>
+                <p className="text-xs text-[#685F53] mt-1 leading-relaxed">
+                  Deep tissue, Swedish stress recovery & heated stones from ₹2,499.
+                </p>
+              </div>
+              <div className="mt-3 flex items-center gap-1 text-xs text-[#446353] font-medium">
+                <span>View Details</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            <Link
+              to="/couple-spa"
+              className="p-4 bg-white rounded-xl border border-[#E3DACD] hover:border-[#446353] transition-colors group flex flex-col justify-between"
+            >
+              <div>
+                <h4 className="font-serif text-base font-semibold text-[#28231D] group-hover:text-[#446353] transition-colors">
+                  Couple Spa Sanctuary
+                </h4>
+                <p className="text-xs text-[#685F53] mt-1 leading-relaxed">
+                  VIP dual suite seclusion with synchronized massages for ₹5,899.
+                </p>
+              </div>
+              <div className="mt-3 flex items-center gap-1 text-xs text-[#446353] font-medium">
+                <span>View Details</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            <Link
+              to="/luxury-spa"
+              className="p-4 bg-white rounded-xl border border-[#E3DACD] hover:border-[#446353] transition-colors group flex flex-col justify-between"
+            >
+              <div>
+                <h4 className="font-serif text-base font-semibold text-[#28231D] group-hover:text-[#446353] transition-colors">
+                  Luxury Spa Experience
+                </h4>
+                <p className="text-xs text-[#685F53] mt-1 leading-relaxed">
+                  Private ensuite showers & 100% organic unrefined botanicals.
+                </p>
+              </div>
+              <div className="mt-3 flex items-center gap-1 text-xs text-[#446353] font-medium">
+                <span>View Details</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            <Link
+              to="/thai-massage"
+              className="p-4 bg-white rounded-xl border border-[#E3DACD] hover:border-[#446353] transition-colors group flex flex-col justify-between"
+            >
+              <div>
+                <h4 className="font-serif text-base font-semibold text-[#28231D] group-hover:text-[#446353] transition-colors">
+                  Traditional Thai Massage
+                </h4>
+                <p className="text-xs text-[#685F53] mt-1 leading-relaxed">
+                  Assisted passive yoga stretching & Sen line acupressure for ₹2,899.
+                </p>
+              </div>
+              <div className="mt-3 flex items-center gap-1 text-xs text-[#446353] font-medium">
+                <span>View Details</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* Etiquette & FAQs — Soft Cream (#F3EFE6) Section */}

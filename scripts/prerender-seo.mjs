@@ -35,9 +35,9 @@ const routes = [
   {
     path: '/',
     outputPath: path.join(distDir, 'index.html'),
-    title: 'Nandini Spa | Luxury Spa in Bhopal & Restorative Bodywork Sanctuary',
-    description: 'Experience Bhopal’s premier luxury spa at Board Office Chouraha, MP Nagar. Therapeutic deep tissue massage, warm basalt stones, authentic Ayurvedic rituals & private suites.',
-    h1: 'Sanctuary of Restorative Spa & Holistic Bodywork in Bhopal',
+    title: 'Best Spa in Bhopal | Nandini Spa | Luxury Body Massage Sanctuary',
+    description: 'Discover Nandini Spa, the best luxury spa in Bhopal at Board Office Chouraha, MP Nagar. Full body massage, couple spa & Ayurvedic rituals. Call +91 90604 33848!',
+    h1: 'Best Spa in Bhopal — Luxury Body Massage & Wellness Sanctuary',
     ogImage: '/nandini-spa-location-updated.png',
     robots: 'index, follow',
     summary: 'Therapeutic musculoskeletal bodywork, hydrothermal volcanic basalt stones, and authentic Ayurvedic rituals in private climate-controlled suites in MP Nagar, Bhopal.',
@@ -223,9 +223,9 @@ const routes = [
   {
     path: '/full-body-massage',
     outputPath: path.join(distDir, 'full-body-massage', 'index.html'),
-    title: 'Full Body Massage in Bhopal | Deep Tissue, Swedish & Therapeutic Bodywork',
-    description: 'Looking for the best full body massage in Bhopal? Nandini Spa in MP Nagar provides expert deep tissue, Swedish stress recovery & Balinese massage. Call +91 90604 33848.',
-    h1: 'Therapeutic Full Body Massage in Bhopal',
+    title: 'Full Body Massage in Bhopal | Best Body Massage Spa in MP Nagar',
+    description: 'Looking for the best full body massage in Bhopal? Nandini Spa in MP Nagar provides expert deep tissue, Swedish stress recovery & Balinese massage from ₹2,499. Call now!',
+    h1: 'Therapeutic Full Body Massage in Bhopal — Deep Tissue & Swedish Bodywork',
     ogImage: '/nandini-spa-location-updated.png',
     robots: 'index, follow',
     summary: 'Precision trigger-point therapy, myofascial release, heated basalt stones, and organic botanical massage in private climate suites in MP Nagar, Bhopal.',
@@ -310,9 +310,9 @@ const routes = [
   {
     path: '/couple-spa',
     outputPath: path.join(distDir, 'couple-spa', 'index.html'),
-    title: 'Couple Spa in Bhopal | Private VIP Suites & Dual Synchronized Massages',
-    description: 'Reconnect with our luxury couple spa in Bhopal at Nandini Spa. Private VIP suites, side-by-side synchronized massages, floral foot soaks & herbal tisanes in MP Nagar.',
-    h1: 'Luxury Couple Spa Sanctuary in Bhopal',
+    title: 'Couple Spa in Bhopal | Private VIP Suite Massage in MP Nagar',
+    description: 'Book a luxury couple spa in Bhopal at Nandini Spa. Private VIP suite, side-by-side synchronized massages, floral foot soaks & herbal tisanes in MP Nagar. Reserve online!',
+    h1: 'Luxury Couple Spa in Bhopal — Private VIP Suite & Synchronized Massages',
     ogImage: '/nandini-spa-location-updated.png',
     robots: 'index, follow',
     summary: 'Private VIP executive suite seclusion for couples in Bhopal with synchronized 75-minute therapeutic massages, rose foot soak, and private rainfall shower.',
@@ -367,9 +367,9 @@ const routes = [
   {
     path: '/luxury-spa',
     outputPath: path.join(distDir, 'luxury-spa', 'index.html'),
-    title: 'Luxury Spa in Bhopal | 5-Star Executive Wellness Sanctuary | Nandini Spa',
-    description: 'Experience Bhopal’s most refined luxury spa. Private ensuite rainfall showers, sound-damped therapy suites, 100% organic botanicals & bespoke Ayurvedic bodywork in MP Nagar.',
-    h1: '5-Star Luxury Spa & Wellness Sanctuary in Bhopal',
+    title: 'Luxury Spa in Bhopal | 5-Star Wellness Sanctuary in MP Nagar',
+    description: 'Experience Bhopal’s most refined luxury spa at Nandini Spa in MP Nagar. Private ensuite rainfall showers, sound-damped therapy suites & bespoke Ayurvedic bodywork. Call now!',
+    h1: '5-Star Luxury Spa in Bhopal — Executive Wellness & Private Suites',
     ogImage: '/nandini-spa-location-updated.png',
     robots: 'index, follow',
     summary: 'Bhopal’s most distinguished wellness sanctuary featuring sound-damped private suites, ensuite rainfall showers, certified kinesiologists, and pure wildcrafted botanicals.',
@@ -407,6 +407,89 @@ const routes = [
           { '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE_URL}/` },
           { '@type': 'ListItem', position: 2, name: 'Services', item: `${BASE_URL}/services` },
           { '@type': 'ListItem', position: 3, name: 'Luxury Spa Bhopal', item: `${BASE_URL}/luxury-spa` },
+        ],
+      },
+    ],
+  },
+  {
+    path: '/thai-massage',
+    outputPath: path.join(distDir, 'thai-massage', 'index.html'),
+    title: 'Thai Massage in Bhopal | Traditional Yoga Stretch & Mobility Spa',
+    description: 'Restore joint mobility with authentic Thai massage in Bhopal at Nandini Spa, MP Nagar. Traditional passive stretching, Sen line acupressure & relief from ₹2,899. Call now!',
+    h1: 'Traditional Thai Massage in Bhopal — Assisted Yoga Stretch & Mobility',
+    ogImage: '/nandini-spa-location-updated.png',
+    robots: 'index, follow',
+    summary: 'Ancient Nuad Thai bodywork combining assisted yoga passive stretching and rhythmic Sen line acupressure on comfortable floor mats in MP Nagar, Bhopal.',
+    breadcrumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'Services', path: '/services' },
+      { name: 'Thai Massage Bhopal', path: '/thai-massage' },
+    ],
+    faqs: [
+      {
+        q: 'What is Traditional Thai Massage at Nandini Spa Bhopal?',
+        a: 'Traditional Thai Massage is an ancient bodywork system integrating guided passive yoga stretches, joint mobilization, and rhythmic acupressure along biological Sen channels. It is practiced fully clothed on a comfortable floor mat with sterile loose cotton clothing provided.',
+      },
+      {
+        q: 'What are the benefits of Thai massage for desk workers and athletes in Bhopal?',
+        a: 'Thai massage decompresses the spine, lengthens tight hamstrings, opens restricted hip flexors from prolonged sitting, and stimulates lymphatic circulation without applying heavy body oils.',
+      },
+      {
+        q: 'Where in Bhopal is Nandini Spa located for Thai massage?',
+        a: 'Nandini Spa is located at Board Office Chouraha, Zone-II, Maharana Pratap Nagar (MP Nagar), Bhopal, Madhya Pradesh 462011.',
+      },
+    ],
+    structuredData: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: 'Traditional Thai Massage in Bhopal',
+        description: 'Restore joint mobility with authentic Thai massage in Bhopal at Nandini Spa, MP Nagar. Traditional passive stretching, Sen line acupressure & relief from ₹2,899.',
+        url: `${BASE_URL}/thai-massage`,
+        provider: {
+          '@type': 'DaySpa',
+          name: 'Nandini Spa',
+          url: `${BASE_URL}/`,
+        },
+        areaServed: {
+          '@type': 'AdministrativeArea',
+          name: 'Bhopal',
+        },
+        offers: {
+          '@type': 'Offer',
+          price: '2899',
+          priceCurrency: 'INR',
+        },
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: 'Services', item: `${BASE_URL}/services` },
+          { '@type': 'ListItem', position: 3, name: 'Thai Massage Bhopal', item: `${BASE_URL}/thai-massage` },
+        ],
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'What is Traditional Thai Massage at Nandini Spa Bhopal?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Traditional Thai Massage is an ancient bodywork system integrating guided passive yoga stretches, joint mobilization, and rhythmic acupressure along biological Sen channels. It is practiced fully clothed on a comfortable floor mat with sterile loose cotton clothing provided.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Where in Bhopal is Nandini Spa located for Thai massage?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Nandini Spa is located at Board Office Chouraha, Zone-II, Maharana Pratap Nagar (MP Nagar), Bhopal, Madhya Pradesh 462011.',
+            },
+          },
         ],
       },
     ],
@@ -469,9 +552,9 @@ const routes = [
   {
     path: '/contact',
     outputPath: path.join(distDir, 'contact', 'index.html'),
-    title: 'Contact Nandini Spa Bhopal | Location, Directions & Appointments',
-    description: 'Contact Nandini Spa at Board Office Chouraha, Zone-II, MP Nagar, Bhopal. Call +91 90604 33848 or chat on WhatsApp for reservations, directions & concierge consultations.',
-    h1: 'Contact Nandini Spa & Sanctuary Directions in Bhopal',
+    title: 'Contact Nandini Spa Bhopal | Spa in MP Nagar, Maharana Pratap Nagar',
+    description: 'Contact Nandini Spa at Board Office Chouraha, Zone-II, MP Nagar, Bhopal. Open 24 hours daily. Call +91 90604 33848 or chat on WhatsApp for instant appointments & directions!',
+    h1: 'Contact Nandini Spa — Spa in Maharana Pratap Nagar, Bhopal',
     ogImage: '/nandini-spa-location-updated.png',
     robots: 'index, follow',
     summary: 'Official contact and location directory for Nandini Spa at Board Office Chouraha, Zone-II, MP Nagar, Bhopal.',
@@ -604,41 +687,47 @@ for (const route of routes) {
     : '';
 
   const semanticBlock = `
-      <!-- Crawlable Semantic SSR Markup for Search Engines & Non-JS Clients -->
+    <div id="root">
+      <!-- Prerendered Semantic HTML Content for Search Engine Crawlers & Fast Initial Paint -->
+      <header style="background:#201C17; color:#FAF7F2; padding:24px 20px; text-align:center;">
+        <h1>${route.h1}</h1>
+        <p>Nandini Spa — ${NAP_DETAILS.streetAddress}, ${NAP_DETAILS.addressLocality}, ${NAP_DETAILS.addressRegion} ${NAP_DETAILS.postalCode} · Phone: <a href="tel:${NAP_DETAILS.phoneTel}" style="color:#ECE4D8;">${NAP_DETAILS.phone}</a> · ${NAP_DETAILS.hours}</p>
+        <nav style="margin-top:14px; font-size:13px;">
+          <a href="/" style="color:#7A9988; margin:0 8px;">Home</a>
+          <a href="/about" style="color:#7A9988; margin:0 8px;">About Us</a>
+          <a href="/services" style="color:#7A9988; margin:0 8px;">Services</a>
+          <a href="/full-body-massage" style="color:#7A9988; margin:0 8px;">Full Body Massage</a>
+          <a href="/couple-spa" style="color:#7A9988; margin:0 8px;">Couple Spa</a>
+          <a href="/luxury-spa" style="color:#7A9988; margin:0 8px;">Luxury Spa</a>
+          <a href="/thai-massage" style="color:#7A9988; margin:0 8px;">Thai Massage</a>
+          <a href="/gallery" style="color:#7A9988; margin:0 8px;">Gallery</a>
+          <a href="/contact" style="color:#7A9988; margin:0 8px;">Contact</a>
+          <a href="/booking" style="color:#7A9988; margin:0 8px; font-weight:bold;">Book Appointment</a>
+        </nav>
+      </header>
+      <main style="padding:40px 20px; max-width:850px; margin:0 auto; font-family:sans-serif; line-height:1.7; color:#28231D;">
+        ${breadcrumbHtml}
+        <h2>${route.title}</h2>
+        <p>${route.summary}</p>
+        <div style="background:#F3EFE6; padding:20px; border-radius:8px; margin:24px 0;">
+          <h3 style="margin-top:0;">Sanctuary Location & Contact Information</h3>
+          <p><strong>Address:</strong> ${NAP_DETAILS.streetAddress}, ${NAP_DETAILS.addressLocality}, ${NAP_DETAILS.addressRegion} ${NAP_DETAILS.postalCode}</p>
+          <p><strong>Phone / Reservations:</strong> <a href="tel:${NAP_DETAILS.phoneTel}">${NAP_DETAILS.phone}</a></p>
+          <p><strong>Email:</strong> <a href="mailto:${NAP_DETAILS.email}">${NAP_DETAILS.email}</a></p>
+          <p><strong>Operating Hours:</strong> ${NAP_DETAILS.hours}</p>
+          <p><a href="/booking" style="background:#446353; color:#fff; padding:10px 18px; text-decoration:none; display:inline-block; border-radius:4px; font-weight:bold; margin-top:8px;">Reserve Online Appointment</a></p>
+        </div>
+        ${faqHtml}
+      </main>
       <noscript>
-        <header style="background:#201C17; color:#FAF7F2; padding:24px 20px; text-align:center;">
-          <h1>${route.h1}</h1>
-          <p>Nandini Spa — ${NAP_DETAILS.streetAddress}, ${NAP_DETAILS.addressLocality}, ${NAP_DETAILS.addressRegion} ${NAP_DETAILS.postalCode} · Phone: <a href="tel:${NAP_DETAILS.phoneTel}" style="color:#ECE4D8;">${NAP_DETAILS.phone}</a> · ${NAP_DETAILS.hours}</p>
-          <nav style="margin-top:14px; font-size:13px;">
-            <a href="/" style="color:#7A9988; margin:0 8px;">Home</a>
-            <a href="/about" style="color:#7A9988; margin:0 8px;">About Us</a>
-            <a href="/services" style="color:#7A9988; margin:0 8px;">Services</a>
-            <a href="/full-body-massage" style="color:#7A9988; margin:0 8px;">Full Body Massage</a>
-            <a href="/couple-spa" style="color:#7A9988; margin:0 8px;">Couple Spa</a>
-            <a href="/luxury-spa" style="color:#7A9988; margin:0 8px;">Luxury Spa</a>
-            <a href="/gallery" style="color:#7A9988; margin:0 8px;">Gallery</a>
-            <a href="/contact" style="color:#7A9988; margin:0 8px;">Contact</a>
-            <a href="/booking" style="color:#7A9988; margin:0 8px; font-weight:bold;">Book Appointment</a>
-          </nav>
-        </header>
-        <main style="padding:40px 20px; max-width:850px; margin:0 auto; font-family:sans-serif; line-height:1.7; color:#28231D;">
-          ${breadcrumbHtml}
-          <h2>${route.title}</h2>
-          <p>${route.summary}</p>
-          <div style="background:#F3EFE6; padding:20px; border-radius:8px; margin:24px 0;">
-            <h3 style="margin-top:0;">Sanctuary Location & Contact Information</h3>
-            <p><strong>Address:</strong> ${NAP_DETAILS.streetAddress}, ${NAP_DETAILS.addressLocality}, ${NAP_DETAILS.addressRegion} ${NAP_DETAILS.postalCode}</p>
-            <p><strong>Phone / Reservations:</strong> <a href="tel:${NAP_DETAILS.phoneTel}">${NAP_DETAILS.phone}</a></p>
-            <p><strong>Email:</strong> <a href="mailto:${NAP_DETAILS.email}">${NAP_DETAILS.email}</a></p>
-            <p><strong>Operating Hours:</strong> ${NAP_DETAILS.hours}</p>
-            <p><a href="${route.path === '/booking' ? '/booking' : '/booking'}" style="background:#446353; color:#fff; padding:10px 18px; text-decoration:none; display:inline-block; border-radius:4px; font-weight:bold; margin-top:8px;">Reserve Online Appointment</a></p>
-          </div>
-          ${faqHtml}
-        </main>
+        <div style="text-align:center; padding:16px; font-size:12px; color:#685F53;">
+          For full interactive booking and visual features, JavaScript is recommended.
+        </div>
       </noscript>
+    </div>
   `;
 
-  html = html.replace(/<noscript>[\s\S]*?<\/noscript>/i, semanticBlock);
+  html = html.replace(/<div id=["']root["']>[\s\S]*?<\/div>/i, semanticBlock);
 
   fs.writeFileSync(route.outputPath, html, 'utf8');
   console.log(`✓ Prerendered: ${route.path} -> ${path.relative(rootDir, route.outputPath)}`);

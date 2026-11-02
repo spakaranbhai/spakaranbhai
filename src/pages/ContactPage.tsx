@@ -166,7 +166,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConfig, onOpenBo
                 <div>
                   <div className="text-xs uppercase tracking-wider text-[#685F53] font-semibold">City & Office Address</div>
                   <div className="text-sm font-semibold text-[#28231D] mt-0.5">
-                    {BUSINESS_CONFIG.locality ? `${BUSINESS_CONFIG.locality}, ${BUSINESS_CONFIG.city}` : `Mansarovar Complex, Shivaji Nagar, ${BUSINESS_CONFIG.city}`}
+                    {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city}
                   </div>
                   <div className="text-xs text-[#685F53] mt-1 leading-relaxed">
                     {BUSINESS_CONFIG.streetAddressPlaceholder}

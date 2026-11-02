@@ -93,6 +93,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenConfig }) =
                 <Link to="/luxury-spa" className="hover:text-[#FAF7F2] transition-colors">Luxury Spa Experience</Link>
               </li>
               <li>
+                <Link to="/thai-massage" className="hover:text-[#FAF7F2] transition-colors">Thai Massage Bhopal</Link>
+              </li>
+              <li>
                 <Link to="/booking" className="hover:text-[#FAF7F2] transition-colors">Book Online Appointment</Link>
               </li>
               <li>
@@ -135,7 +138,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenConfig }) =
                 <MapPin className="w-4 h-4 text-[#7A9988] shrink-0 mt-0.5" />
                 <div>
                   <div className="font-semibold text-[#FAF7F2]">
-                    {BUSINESS_CONFIG.locality ? `${BUSINESS_CONFIG.locality}, ${BUSINESS_CONFIG.city}` : `Mansarovar Complex, Shivaji Nagar, ${BUSINESS_CONFIG.city}`}
+                    {BUSINESS_CONFIG.locality || 'Zone-II, Maharana Pratap Nagar'}, {BUSINESS_CONFIG.city}
                   </div>
                   <div className="text-[11px] text-[#C5BBAF]/80 mt-0.5">
                     {BUSINESS_CONFIG.streetAddressPlaceholder}

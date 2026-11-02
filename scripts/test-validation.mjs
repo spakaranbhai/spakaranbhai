@@ -31,6 +31,7 @@ if (fs.existsSync(sitemapPath)) {
   assert(content.includes(`${CANONICAL_DOMAIN}/full-body-massage`), 'sitemap.xml contains /full-body-massage');
   assert(content.includes(`${CANONICAL_DOMAIN}/couple-spa`), 'sitemap.xml contains /couple-spa');
   assert(content.includes(`${CANONICAL_DOMAIN}/luxury-spa`), 'sitemap.xml contains /luxury-spa');
+  assert(content.includes(`${CANONICAL_DOMAIN}/thai-massage`), 'sitemap.xml contains /thai-massage');
   assert(content.includes(`${CANONICAL_DOMAIN}/booking`), 'sitemap.xml contains /booking');
   assert(!content.includes('/404'), 'sitemap.xml correctly excludes 404 page');
   assert(!content.includes('github.io'), 'sitemap.xml contains zero github.io references');
@@ -91,6 +92,7 @@ const routesToCheck = [
   { file: 'full-body-massage/index.html', title: 'Full Body Massage in Bhopal', canonical: `${CANONICAL_DOMAIN}/full-body-massage` },
   { file: 'couple-spa/index.html', title: 'Couple Spa in Bhopal', canonical: `${CANONICAL_DOMAIN}/couple-spa` },
   { file: 'luxury-spa/index.html', title: 'Luxury Spa in Bhopal', canonical: `${CANONICAL_DOMAIN}/luxury-spa` },
+  { file: 'thai-massage/index.html', title: 'Thai Massage in Bhopal', canonical: `${CANONICAL_DOMAIN}/thai-massage` },
   { file: 'booking/index.html', title: 'Book Spa Appointment', canonical: `${CANONICAL_DOMAIN}/booking` },
   { file: 'gallery/index.html', title: 'Sanctuary Ambiance Gallery', canonical: `${CANONICAL_DOMAIN}/gallery` },
   { file: 'contact/index.html', title: 'Contact Nandini Spa', canonical: `${CANONICAL_DOMAIN}/contact` },

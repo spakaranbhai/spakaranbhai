@@ -86,7 +86,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
             {/* Display Headline */}
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-[#FAF7F2] leading-[1.18] sm:leading-[1.15] text-balance">
-              {BUSINESS_CONFIG.tagline} in Bhopal
+              Best Spa in Bhopal — Sanctuary of Restorative Bodywork & Luxury Wellness
             </h1>
 
             {/* Value Proposition */}

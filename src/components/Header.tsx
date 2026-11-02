@@ -20,6 +20,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking, onOpenConfig }) =
     { name: 'Services', path: '/services' },
     { name: 'Full Body Massage', path: '/full-body-massage' },
     { name: 'Couple Spa', path: '/couple-spa' },
+    { name: 'Thai Massage', path: '/thai-massage' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'Contact', path: '/contact' },
   ];
